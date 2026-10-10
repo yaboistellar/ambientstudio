@@ -1380,6 +1380,112 @@ main {
 }
 
 /* ==========================================================================
+   Dedicated Emergency Button Page Styles
+   ========================================================================== */
+.toy-callout-section {
+  padding-top: calc(var(--section-spacing) * 0.4);
+  padding-bottom: calc(var(--section-spacing) * 0.4);
+}
+
+.button-portal-banner {
+  border-left: 5px solid #FF5E00;
+}
+
+.button-hero-section {
+  padding-top: calc(var(--section-spacing) * 0.8);
+  padding-bottom: calc(var(--section-spacing) * 0.4);
+}
+
+.button-modes-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-mode-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-mode-pill:hover,
+.btn-mode-pill.active {
+  border-color: var(--orange-bright);
+  color: var(--orange-yellow);
+  background: rgba(255, 94, 0, 0.14);
+}
+
+.achievement-ladder-section {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.achievement-ladder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.achievement-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 1.5rem 1.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.18s ease;
+}
+
+.achievement-card.unlocked {
+  border-color: var(--orange-bright);
+  background: rgba(255, 94, 0, 0.08);
+}
+
+.achievement-icon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.achievement-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.achievement-req {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--orange-yellow);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.achievement-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.achievement-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================================
    Philosophy / Silly Manifesto
    ========================================================================== */
 .philosophy-section {

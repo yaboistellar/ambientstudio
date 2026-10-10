@@ -566,17 +566,37 @@
     const achievementDisplay = document.getElementById('toyAchievementText');
     if (!btn || !scoreDisplay) return;
 
+    let selectedButtonSoundMode = 'random';
+    document.querySelectorAll('.btn-mode-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.btn-mode-pill').forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+        selectedButtonSoundMode = pill.dataset.mode || 'random';
+      });
+    });
+
     btn.addEventListener('click', (e) => {
       sillyPoints++;
       scoreDisplay.textContent = sillyPoints;
 
-      // Random silly sound
-      const rand = Math.random();
-      if (rand < 0.33) window.triggerSillyBoing();
-      else if (rand < 0.66) window.triggerSillyQuack();
-      else window.triggerSillyLaser();
+      // Play sound based on mode
+      if (selectedButtonSoundMode === 'quack') {
+        window.triggerSillyQuack();
+      } else if (selectedButtonSoundMode === 'boing') {
+        window.triggerSillyBoing();
+      } else if (selectedButtonSoundMode === 'laser') {
+        window.triggerSillyLaser();
+      } else if (selectedButtonSoundMode === 'mower') {
+        window.triggerSillyEngine();
+      } else {
+        const rand = Math.random();
+        if (rand < 0.25) window.triggerSillyBoing();
+        else if (rand < 0.50) window.triggerSillyQuack();
+        else if (rand < 0.75) window.triggerSillyLaser();
+        else window.triggerSillyEngine();
+      }
 
-      // Check achievement
+      // Check achievement text
       for (let i = achievements.length - 1; i >= 0; i--) {
         if (sillyPoints >= achievements[i].threshold) {
           if (achievementDisplay) achievementDisplay.textContent = achievements[i].text;
@@ -584,10 +604,27 @@
         }
       }
 
+      // Check achievement cards ladder
+      document.querySelectorAll('.achievement-card').forEach((card) => {
+        const req = parseInt(card.dataset.threshold, 10);
+        if (sillyPoints >= req && !card.classList.contains('unlocked')) {
+          card.classList.add('unlocked');
+          window.fireConfetti();
+        }
+      });
+
       // Visual floating bonus
       const funEmojis = ['🦆', '🍕', '🍞', '🚀', '🧀', '★'];
       const picked = funEmojis[Math.floor(Math.random() * funEmojis.length)];
       spawnFloatingToast(e.clientX, e.clientY, `+1 SILLY ${picked}`);
+    });
+
+    document.getElementById('panicResetBtn')?.addEventListener('click', () => {
+      sillyPoints = 0;
+      scoreDisplay.textContent = '0';
+      if (achievementDisplay) achievementDisplay.textContent = '"Back to zero! Press again to restart..."';
+      document.querySelectorAll('.achievement-card').forEach((card) => card.classList.remove('unlocked'));
+      window.triggerSillyWomp();
     });
   }
 
