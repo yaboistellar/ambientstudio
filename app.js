@@ -94,7 +94,7 @@
     filter.Q.setValueAtTime(4.2, now);
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.28, now + 0.04);
+    gain.gain.linearRampToValueAtTime(0.65, now + 0.04);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
 
     mod.connect(modGain);
@@ -126,7 +126,7 @@
     osc.frequency.exponentialRampToValueAtTime(680, now + 0.28);
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.3, now + 0.03);
+    gain.gain.linearRampToValueAtTime(0.65, now + 0.03);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
 
     osc.connect(gain);
@@ -152,7 +152,7 @@
     osc.frequency.exponentialRampToValueAtTime(90, now + 0.22);
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.18, now + 0.02);
+    gain.gain.linearRampToValueAtTime(0.55, now + 0.02);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
 
     osc.connect(gain);
@@ -179,7 +179,7 @@
     osc.frequency.exponentialRampToValueAtTime(45, now + 0.38);
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.24, now + 0.05);
+    gain.gain.linearRampToValueAtTime(0.60, now + 0.05);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
 
     osc.connect(gain);
@@ -203,7 +203,7 @@
       osc.frequency.setValueAtTime(freq, now + idx * 0.07);
 
       gain.gain.setValueAtTime(0.001, now + idx * 0.07);
-      gain.gain.linearRampToValueAtTime(0.18, now + idx * 0.07 + 0.02);
+      gain.gain.linearRampToValueAtTime(0.45, now + idx * 0.07 + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.45);
 
       osc.connect(gain);
@@ -231,7 +231,7 @@
       osc.frequency.linearRampToValueAtTime(note.f * 0.85, now + note.t + note.d);
 
       gain.gain.setValueAtTime(0.001, now + note.t);
-      gain.gain.linearRampToValueAtTime(0.24, now + note.t + 0.03);
+      gain.gain.linearRampToValueAtTime(0.58, now + note.t + 0.03);
       gain.gain.exponentialRampToValueAtTime(0.001, now + note.t + note.d);
 
       osc.connect(gain);
@@ -256,7 +256,7 @@
       osc.frequency.setValueAtTime(freq, now + idx * 0.09);
 
       gain.gain.setValueAtTime(0.001, now + idx * 0.09);
-      gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.09 + 0.02);
+      gain.gain.linearRampToValueAtTime(0.52, now + idx * 0.09 + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.4);
 
       osc.connect(gain);
@@ -302,7 +302,7 @@
         osc.frequency.setValueAtTime(notes[step % notes.length], now);
 
         gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.06, now + 0.02);
+        gain.gain.linearRampToValueAtTime(0.12, now + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
 
         osc.connect(gain);
@@ -410,7 +410,7 @@
         osc.frequency.setValueAtTime(customFreqVal, now);
 
         gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.24, now + 0.03);
+        gain.gain.linearRampToValueAtTime(0.58, now + 0.03);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
 
         osc.connect(gain);

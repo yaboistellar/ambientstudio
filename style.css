@@ -1598,7 +1598,7 @@ main {
 
 .direct-contact-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2rem;
   padding-top: 2.5rem;
   border-top: 1px solid var(--border-hairline);
