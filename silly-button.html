@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Silly Button — Instant Dopamine Fidget Toy | Ambient Studio</title>
+  <meta name="description" content="Click Ambient Studio's giant Silly Button for instant dopamine, synthesized sound effects, achievement milestones, and explosive particle confetti.">
+  
+  <!-- Google Fonts: Space Grotesk, Outfit, Silkscreen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+</head>
+<body>
+  <!-- Ambient Audio Mesh & Bouncy Particles Canvas -->
+  <div class="ambient-gradient-mesh" aria-hidden="true"></div>
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Studio Header -->
+  <header class="studio-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link" id="brandLink">
+        <img src="assets/logo.jpg" alt="Ambient Studio Logo" class="brand-logo-img">
+        <span class="brand-title">AMBIENT STUDIO</span>
+        <span class="brand-tag">DO NOT PUSH</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-anchor">Home</a>
+        <a href="games.html" class="nav-anchor">Our Games 🎮</a>
+        <a href="soundboard.html" class="nav-anchor">Bleep Bloop Lab 🔊</a>
+        <a href="silly-button.html" class="nav-anchor nav-anchor-active">Silly Button 🚨</a>
+        <a href="index.html#manifesto" class="nav-anchor">Why So Silly?</a>
+        <a href="#inquiry" class="nav-anchor nav-anchor-primary" onclick="event.preventDefault(); window.scrollToInquiry();">Say Hewwo 👾</a>
+      </nav>
+
+      <!-- Silly Music & Bleep Bloop Toggle -->
+      <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <span class="sound-emoji" id="soundEmoji">🕹️</span>
+        <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Silly Button Hero Section -->
+    <section class="hero-section button-hero-section">
+      <div class="container">
+        
+        <div class="hero-headline-wrap">
+          <div class="silly-badge-row">
+            <span class="silly-badge">🚨 PROCRASTINATION ZONE</span>
+            <span class="silly-badge silly-badge-orange">★ DO NOT PUSH UNDER ANY CIRCUMSTANCES</span>
+            <span class="silly-badge">DOPAMINE GUARANTEE 🦆</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">THE DEDICATED</span>
+            <span class="title-line title-gradient">SILLY BUTTON</span>
+          </h1>
+
+          <p class="hero-subtext">
+            Having an overly serious or stressful day? Welcome to the studio's digital fidget sanctuary. Smash this gigantic Silly Button to dispense real-time synthesized audio waves, physics confetti, and unlock ridiculous achievements.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- The Giant Silly Button Interactive Console -->
+    <section class="secret-toy-section" style="padding-top: 1.5rem; padding-bottom: 4rem;">
+      <div class="container">
+        <div class="toy-card silly-frame-border" style="max-width: 900px; margin: 0 auto;">
+          
+          <div class="toy-header" style="margin-bottom: 2rem;">
+            <span class="sub-label">TACTILE VOLTAGE CONSOLE</span>
+            <h2 class="toy-title">PUSH FOR INSTANT SILLY</h2>
+            <p class="toy-desc">
+              Select your sound mode below, prepare your index finger, and click vigorously!
+            </p>
+
+            <!-- Sound Mode Selector -->
+            <div class="button-modes-row">
+              <span style="font-family: var(--font-pixel); font-size: 0.7rem; color: var(--text-muted); margin-right: 0.4rem;">SOUND MODE:</span>
+              <button class="btn-mode-pill active" data-mode="random">Random Chaos 🎲</button>
+              <button class="btn-mode-pill" data-mode="quack">Duck Quacks 🦆</button>
+              <button class="btn-mode-pill" data-mode="boing">Spring Boings 🦘</button>
+              <button class="btn-mode-pill" data-mode="laser">Space Lasers 👾</button>
+              <button class="btn-mode-pill" data-mode="mower">Void Mower ⚙️</button>
+            </div>
+          </div>
+
+          <div class="toy-interactive-area">
+            <button class="big-silly-button" id="bigSillyButton" aria-label="The Big Silly Button">
+              <span class="big-button-emoji">🦆</span>
+              <span class="big-button-text">PRESS THE SILLY BUTTON</span>
+            </button>
+
+            <div class="toy-score-board">
+              <span class="toy-score-num" id="toyScoreDisplay">0</span>
+              <span class="toy-score-label">SILLY POINTS ACCUMULATED</span>
+              <p class="toy-achievement-text" id="toyAchievementText">"You are just beginning your silly journey..."</p>
+            </div>
+
+            <!-- Console Actions Row -->
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+              <button class="btn-secondary btn-bouncy" id="panicResetBtn" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                <span>Reset Score 🎺</span>
+              </button>
+              <button class="btn-primary btn-bouncy" onclick="window.fireConfetti(); window.triggerSillyFanfare();" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                <span>Mega Confetti Blast 🎉</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Silly Achievement Ladder -->
+    <section class="achievement-ladder-section">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[01]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">PROCRASTINATION MILESTONES</span>
+            <h2 class="section-title">THE HALL OF SILLY TROPHIES</h2>
+          </div>
+          <p class="section-description">
+            Keep pressing the big Silly Button above to unlock these badges of honor. Each milestone triggers celebratory confetti!
+          </p>
+        </div>
+
+        <div class="achievement-ladder-grid">
+          
+          <div class="achievement-card" data-threshold="1">
+            <div class="achievement-icon">🐣</div>
+            <div class="achievement-info">
+              <span class="achievement-req">1 SILLY POINT</span>
+              <h3 class="achievement-title">First Step</h3>
+              <p class="achievement-desc">You dared to push the forbidden orange button.</p>
+            </div>
+          </div>
+
+          <div class="achievement-card" data-threshold="5">
+            <div class="achievement-icon">🦆</div>
+            <div class="achievement-info">
+              <span class="achievement-req">5 SILLY POINTS</span>
+              <h3 class="achievement-title">Duck Whisperer</h3>
+              <p class="achievement-desc">Certified rollerblade quack mechanic.</p>
+            </div>
+          </div>
+
+          <div class="achievement-card" data-threshold="12">
+            <div class="achievement-icon">🍞</div>
+            <div class="achievement-info">
+              <span class="achievement-req">12 SILLY POINTS</span>
+              <h3 class="achievement-title">Toast Defender</h3>
+              <p class="achievement-desc">Saved artisan sourdough from the 450°F heating coils.</p>
+            </div>
+          </div>
+
+          <div class="achievement-card" data-threshold="25">
+            <div class="achievement-icon">🧀</div>
+            <div class="achievement-info">
+              <span class="achievement-req">25 SILLY POINTS</span>
+              <h3 class="achievement-title">Zero-G Master</h3>
+              <p class="achievement-desc">100% unbothered orbital capybara zen state.</p>
+            </div>
+          </div>
+
+          <div class="achievement-card" data-threshold="50">
+            <div class="achievement-icon">⚙️</div>
+            <div class="achievement-info">
+              <span class="achievement-req">50 SILLY POINTS</span>
+              <h3 class="achievement-title">Void Mower Pilot</h3>
+              <p class="achievement-desc">Mowed cosmic weeds across the event horizon.</p>
+            </div>
+          </div>
+
+          <div class="achievement-card" data-threshold="100">
+            <div class="achievement-icon">👑</div>
+            <div class="achievement-info">
+              <span class="achievement-req">100 SILLY POINTS</span>
+              <h3 class="achievement-title">Galaxy Overlord</h3>
+              <p class="achievement-desc">Transcended all serious thoughts in the universe.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Transmit Inquiry / Say Hewwo -->
+    <section class="contact-section" id="inquiry">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[02]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">TIRED OF CLICKING?</span>
+            <h2 class="section-title">TRANSMIT A GOOFY MESSAGE</h2>
+          </div>
+          <p class="section-description">
+            Tell us how many silly points you reached, or suggest a new sound effect for the Silly Button!
+          </p>
+        </div>
+
+        <div class="inquiry-grid">
+          <form class="inquiry-form-card silly-frame-border" id="inquiryForm" onsubmit="window.handleInquirySubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName" class="form-label">YOUR CALLSIGN / NAME *</label>
+                <input type="text" id="contactName" name="name" class="form-input" placeholder="e.g. SillySmasher99" required>
+              </div>
+              <div class="form-group">
+                <label for="contactEmail" class="form-label">CARRIER PIGEON EMAIL *</label>
+                <input type="email" id="contactEmail" name="email" class="form-input" placeholder="gamer@sillygames.fun" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contactTopic" class="form-label">WHAT'S ON YOUR MIND? *</label>
+              <select id="contactTopic" name="topic" class="form-select" required>
+                <option value="high-score">Bragging about my silly button high score</option>
+                <option value="sound-idea">Suggest a new button sound effect</option>
+                <option value="game-collab">Collaborate on an indie game</option>
+                <option value="other">Random absurdity</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage" class="form-label">YOUR TRANSMISSION *</label>
+              <textarea id="contactMessage" name="message" class="form-textarea" rows="4" placeholder="Type your high-score confession..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-bouncy form-submit-btn" id="submitInquiryBtn">
+              <span>Transmit Message 🚀</span>
+            </button>
+          </form>
+
+          <div class="inquiry-info-panel">
+            <div class="info-block">
+              <span class="info-k">DIRECT FREQUENCY</span>
+              <span class="info-v"><a href="mailto:hewwo@ambientstudio.fun">hewwo@ambientstudio.fun</a></span>
+            </div>
+            <div class="info-block">
+              <span class="info-k">BUTTON VOLTAGE</span>
+              <span class="info-v">1.21 Gigawatts of Pure Dopamine</span>
+            </div>
+            <div class="info-block">
+              <span class="info-k">LAB RESPONSE TIME</span>
+              <span class="info-v">Between Pizza Bites (Usually 24 hrs)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="studio-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <img src="assets/logo.jpg" alt="Ambient Studio" class="footer-logo">
+          <span>AMBIENT STUDIO</span>
+        </div>
+        <p class="footer-tagline">
+          Building tactile, chaotic, physics-driven indie games and pure Web Audio toys with zero AI slop.
+        </p>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-col-title">NAVIGATION</span>
+        <a href="index.html">Home</a>
+        <a href="games.html">Our Silly Games 🎮</a>
+        <a href="soundboard.html">Bleep-Bloop Lab 🔊</a>
+        <a href="silly-button.html">The Silly Button 🚨</a>
+        <a href="index.html#manifesto">Why So Silly?</a>
+      </div>
+
+      <div class="footer-credits-col">
+        <span class="footer-col-title">STATUS &amp; CERTIFICATION</span>
+        <div class="duck-approved-seal">
+          <span class="seal-icon">🦆</span>
+          <span class="seal-text">100% CERTIFIED SILLY &amp; DUCK APPROVED</span>
+        </div>
+        <p class="footer-copy">© 2026 Ambient Studio. All duck rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Modals Suite (Arcade, Wishlist, Demo, Playtest, Toast) -->
+  <div class="ambient-toast" id="ambientToast" aria-live="polite"></div>
+
+  <!-- Main JavaScript Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

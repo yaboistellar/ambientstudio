@@ -11,7 +11,7 @@
 - **[index.html](index.html)**: The official landing page with studio philosophy, featured games, and portal hubs.
 - **[games.html](games.html)**: The complete games catalogue featuring live search, genre filters (`Arcade`, `Food`, `Cozy`, `Physics`), and audio engines.
 - **[soundboard.html](soundboard.html)**: The dedicated Bleep-Bloop Acoustic Lab featuring 7 real-time Web Audio API synthesizers, custom waveform sculpting, and live 60 FPS oscilloscope.
-- **[button.html](button.html)**: The dedicated Emergency Silly Button procrastination chamber with tactile sound modes, score progression, and achievement trophies.
+- **[silly-button.html](silly-button.html)** (or [button.html](button.html)): The dedicated Silly Button procrastination chamber with tactile sound modes, score progression, and achievement trophies.
 
 ---
 
