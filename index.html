@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambient Studio — Just Making Silly Ltlle Games For You To Enjoy</title>
+  <meta name="description" content="Ambient Studio is a delightfully goofy indie gaming laboratory crafting black and orange arcade chaos, cozy chill vibes, and silly little games for everyone.">
+  
+  <!-- Modern Creative Typography (Space Grotesk + Outfit) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="arcade">
+  <!-- Dynamic Ambient Mesh Backdrop (Black & Orange Gradient) -->
+  <div class="ambient-gradient-mesh" id="ambientBackdrop" aria-hidden="true"></div>
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Studio Header -->
+  <header class="studio-header">
+    <div class="header-inner">
+      <a href="#hero" class="brand-link" id="brandLink">
+        <img src="assets/logo.jpg" alt="Ambient Studio Logo" class="brand-logo-img">
+        <span class="brand-title">AMBIENT STUDIO</span>
+        <span class="brand-tag">LVL 99</span>
+      </a>
+
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-anchor nav-anchor-active">Home</a>
+        <a href="games.html" class="nav-anchor">Our Games 🎮</a>
+        <a href="#soundboard" class="nav-anchor">Bleep Bloop Lab</a>
+        <a href="#secret-toy" class="nav-anchor">The Button</a>
+        <a href="#manifesto" class="nav-anchor">Why So Silly?</a>
+        <a href="#inquiry" class="nav-anchor nav-anchor-primary">Say Hewwo 👾</a>
+      </nav>
+
+      <!-- Silly Music & Bleep Bloop Toggle -->
+      <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <span class="sound-emoji" id="soundEmoji">🕹️</span>
+        <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <div class="hero-meta-row">
+          <div class="meta-item">
+            <span class="meta-label">CURRENT MISSION</span>
+            <span class="meta-val">100% Certified Goofy Gamedev</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">BRAIN STATUS</span>
+            <span class="meta-val">Eating Pizza · Ragdolls Spinning</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">SERIOUS THOUGHTS</span>
+            <span class="meta-val">Zero (Strictly Prohibited)</span>
+          </div>
+        </div>
+
+        <div class="hero-headline-wrap">
+          <div class="silly-badge-row">
+            <div class="hero-logo-badge" title="Ambient Studio Official Logo">
+              <img src="assets/logo.jpg" alt="Ambient Studio Official Emblem" class="hero-logo-img">
+            </div>
+            <span class="silly-badge">👾 INDIE GAME LAB</span>
+            <span class="silly-badge silly-badge-orange">★ ZERO BORING STUFF</span>
+            <span class="silly-badge">DUCK-APPROVED 🦆</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">JUST MAKING SILLY</span>
+            <span class="title-line title-gradient">LTLLE GAMES FOR YOU TO ENJOY</span>
+          </h1>
+
+          <p class="hero-subtext">
+            Welcome to Ambient Studio! We make ridiculously goofy indie games dipped in black &amp; molten orange gradients. Expect ducks on flame roller skates, slices of toast fleeing angry kitchenware, chill space capybaras, and physics that make zero sense in the best way possible.
+          </p>
+        </div>
+
+        <div class="hero-actions-row">
+          <a href="games.html" class="btn-primary btn-bouncy" id="exploreGamesBtn">
+            <span>Play Our Silly Games</span>
+            <span class="btn-icon">🎮</span>
+          </a>
+          
+          <button class="btn-secondary btn-bouncy" id="boopDuckBtn">
+            <span>Boop The Duck</span>
+            <span class="boop-counter-badge" id="boopCountBadge">0 boops</span>
+          </button>
+          
+          <div class="hero-status-stat">
+            <span class="stat-number">9,480<small>quacks</small></span>
+            <span class="stat-caption">Recorded in playtests today</span>
+          </div>
+        </div>
+
+        <!-- Hero Featured Game Showcase -->
+        <div class="hero-heroic-visual">
+          <div class="visual-frame silly-frame-border">
+            <img src="assets/game-duck.jpg" alt="Duck Drift Speedway - Goofy duck with pixel sunglasses on roller skates in neon orange city" class="featured-img" id="heroMainImage">
+            <div class="visual-overlay"></div>
+            <div class="visual-badge">
+              <span class="badge-index">NOW TRENDING</span>
+              <span class="badge-title">DUCK DRIFT: SPEEDWAY MAYHEM</span>
+              <span class="badge-loc">★ 10/10 EXTREMELY SILLY</span>
+            </div>
+            <div class="fun-corner-stamp">100% GOOFY ✓</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Silly Arcade Strip Ticker -->
+    <section class="ticker-section" aria-label="Arcade features ticker">
+      <div class="ticker-track">
+        <div class="ticker-item"><span>🦆 NO THOUGHTS JUST VIBES</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🍕 POWERED BY MIDNIGHT PIZZA</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🍞 TERRIFIED TOAST ENGINE</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🚀 ZERO-G CAPYBARA PROTOCOL</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🎮 IT'S NOT A BUG IT'S A FEATURE</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🦆 NO THOUGHTS JUST VIBES</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🍕 POWERED BY MIDNIGHT PIZZA</span> <span class="bullet">✦</span></div>
+        <div class="ticker-item"><span>🍞 TERRIFIED TOAST ENGINE</span> <span class="bullet">✦</span></div>
+      </div>
+    </section>
+
+    <!-- The Silly Games Catalogue -->
+    <section class="projects-section" id="games">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[01]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">RIDICULOUS ENTERTAINMENT ARCHIVE</span>
+            <h2 class="section-title">OUR SILLY GAMES</h2>
+          </div>
+          <p class="section-description">
+            Handcrafted with love, comedic timing, and slightly unhinged game design. Jump in, do something absurd, and giggle until your stomach hurts!
+          </p>
+        </div>
+
+        <div class="project-featured-grid">
+          
+          <!-- Game 01: Duck Drift -->
+          <article class="project-card-editorial" id="gameCard1">
+            <div class="project-media silly-media-border">
+              <img src="assets/game-duck.jpg" alt="Duck Drift indie game screenshot" loading="lazy">
+              <div class="game-tag-pill">HOT &amp; SILLY 🔥</div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta-strip">
+                <span class="meta-tag">GENRE: DUCK ROLLERBLADING</span>
+                <span class="meta-year">SCORE: 34,500</span>
+              </div>
+              <h3 class="project-title">Duck Drift: Speedway Mayhem</h3>
+              <p class="project-summary">
+                Play as Sir Waddlesworth, a tiny round duck sporting pixel shades and rocket roller skates. Drift around sharp street corners in a glowing orange metropolis, dodge flying pizza slices, and break the speed barrier using pure stubbornness.
+              </p>
+              <div class="project-technical-specs">
+                <div><span>TOP SPEED</span><strong>Turbo Quack 9000</strong></div>
+                <div><span>CHAOS LEVEL</span><strong>11 / 10</strong></div>
+                <div><span>PRICE</span><strong>Free &amp; Silly</strong></div>
+              </div>
+              <div class="game-card-actions">
+                <button class="btn-play-mini btn-bouncy" onclick="window.launchArcadeGame('duck')">
+                  <span>Play Game 🕹️</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.triggerSillyQuack(this)">
+                  <span>Quack Engine 🔊</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.openWishlistModal('Duck Drift: Speedway Mayhem')">
+                  <span>Wishlist ★</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Game 02: Toast-o-Matic -->
+          <article class="project-card-editorial" id="gameCard2">
+            <div class="project-media silly-media-border">
+              <img src="assets/game-toast.jpg" alt="Toast-o-Matic escape indie game screenshot" loading="lazy">
+              <div class="game-tag-pill">HOT CRUST ALERT 🍞</div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta-strip">
+                <span class="meta-tag">GENRE: HIGH-CARB PANIC RUN</span>
+                <span class="meta-year">HOT!</span>
+              </div>
+              <h3 class="project-title">Toast-o-Matic 3000: Escape The Heat</h3>
+              <p class="project-summary">
+                You are a fresh slice of sourdough bread. The gigantic kitchen toaster has gained consciousness and is mad. Sprint across butter-slicked kitchen counters, jump over forks, and preserve your fluffy golden crumb!
+              </p>
+              <div class="project-technical-specs">
+                <div><span>TEMP LEVEL</span><strong>GETTING WARMER!</strong></div>
+                <div><span>CRUMBS DROPPED</span><strong>14,200</strong></div>
+                <div><span>DIFFICULTY</span><strong>Crispy</strong></div>
+              </div>
+              <div class="game-card-actions">
+                <button class="btn-play-mini btn-bouncy" onclick="window.launchArcadeGame('toast')">
+                  <span>Play Game 🕹️</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.triggerSillyBoing(this)">
+                  <span>Panic Jump 🦘</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.openWishlistModal('Toast-o-Matic 3000: Escape The Heat')">
+                  <span>Wishlist ★</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Game 03: Capybara Snack Heist -->
+          <article class="project-card-editorial" id="gameCard3">
+            <div class="project-media silly-media-border">
+              <img src="assets/game-capybara.jpg" alt="Chill Capybara Space zero-g snack heist indie game" loading="lazy">
+              <div class="game-tag-pill">MAXIMUM CHILL 🧀</div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta-strip">
+                <span class="meta-tag">GENRE: ZERO-G COZY HEIST</span>
+                <span class="meta-year">UNBOTHERED</span>
+              </div>
+              <h3 class="project-title">Capybara Zero-G: The Giant Cheese Puff</h3>
+              <p class="project-summary">
+                Float through a dark sci-fi orbital cruiser as a totally zen space capybara in a glass helmet. Use zero-gravity physics, floating plants, and peaceful vibes to retrieve the legendary holy orange space snack.
+              </p>
+              <div class="project-technical-specs">
+                <div><span>CHILL METER</span><strong>100% UNBOTHERED</strong></div>
+                <div><span>GRAVITY</span><strong>0.00 G</strong></div>
+                <div><span>SNACK SIZE</span><strong>Colossal Puff</strong></div>
+              </div>
+              <div class="game-card-actions">
+                <button class="btn-play-mini btn-bouncy" onclick="window.launchArcadeGame('capybara')">
+                  <span>Play Game 🕹️</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.triggerSillyLaser(this)">
+                  <span>Zero-G Boop 🚀</span>
+                </button>
+                <button class="btn-play-mini btn-bouncy" onclick="window.openWishlistModal('Capybara Zero-G: The Giant Cheese Puff')">
+                  <span>Wishlist ★</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="view-all-games-banner">
+          <div class="banner-text">
+            <h3>WANT MORE CHAOS &amp; WEIRD PHYSICS?</h3>
+            <p>We've launched a separate games hub with our full catalogue, sound previews, and platform specs!</p>
+          </div>
+          <a href="games.html" class="btn-primary btn-bouncy btn-view-all">
+            <span>Explore All Silly Games in Full Hub →</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- The Silly Soundboard & Bleep-Bloop Lab -->
+    <section class="chamber-section" id="soundboard">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[02]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">NOISEMAKER EXPERIMENTS</span>
+            <h2 class="section-title">THE BLEEP-BLOOP LAB</h2>
+          </div>
+          <p class="section-description">
+            Smash these buttons to fire live synthesized 8-bit sound effects. Watch the funny waveform bounce with every goofy sound!
+          </p>
+        </div>
+
+        <div class="chamber-grid">
+          <!-- Silly Sound Buttons -->
+          <div class="chamber-presets">
+            <button class="preset-card active silly-card-wiggle" id="soundBtnQuack">
+              <div class="preset-top">
+                <span class="preset-hz">🦆 QUACK ENGINE</span>
+                <span class="preset-indicator">CLICK ME!</span>
+              </div>
+              <h3 class="preset-name">The Mega Duck Honk</h3>
+              <p class="preset-desc">Fires an FM frequency modulated wobble duck quack through our custom black-and-orange acoustic horn.</p>
+              <div class="preset-specs">
+                <span>Tone: 340Hz</span>
+                <span>Goofiness: 100%</span>
+                <span>Type: Honk</span>
+              </div>
+            </button>
+
+            <button class="preset-card silly-card-wiggle" id="soundBtnBoing">
+              <div class="preset-top">
+                <span class="preset-hz">🦘 BOING JUMP</span>
+                <span class="preset-indicator">SPRINGY!</span>
+              </div>
+              <h3 class="preset-name">The Trampoline Sprog</h3>
+              <p class="preset-desc">Classic retro platformer ascending pitch slide. Perfect for fleeing angry kitchen appliances.</p>
+              <div class="preset-specs">
+                <span>Sweep: 120Hz → 850Hz</span>
+                <span>Decay: 0.35s</span>
+                <span>Bounce: Max</span>
+              </div>
+            </button>
+
+            <button class="preset-card silly-card-wiggle" id="soundBtnLaser">
+              <div class="preset-top">
+                <span class="preset-hz">👾 PEW PEW ZAP</span>
+                <span class="preset-indicator">ARCADE!</span>
+              </div>
+              <h3 class="preset-name">Space Cheese Blaster</h3>
+              <p class="preset-desc">Downward pitch laser blast used by astronaut capybaras in deep space negotiations.</p>
+              <div class="preset-specs">
+                <span>Sweep: 1200Hz → 180Hz</span>
+                <span>Wave: Square</span>
+                <span>Retro: 1988</span>
+              </div>
+            </button>
+
+            <button class="preset-card silly-card-wiggle" id="soundBtnWomp">
+              <div class="preset-top">
+                <span class="preset-hz">🎺 WOMP-WOMP</span>
+                <span class="preset-indicator">FAIL HORN!</span>
+              </div>
+              <h3 class="preset-name">Sad Trombone of Defeat</h3>
+              <p class="preset-desc">When you accidentally rollerblade off the edge or get toasted. Instantly brings joyful commiseration.</p>
+              <div class="preset-specs">
+                <span>Dissonance: High</span>
+                <span>Sympathy: Low</span>
+                <span>Giggle: Guaranteed</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Scope Display with Bouncy Cartoon Waves -->
+          <div class="chamber-scope-display silly-scope-border">
+            <div class="scope-header">
+              <div class="scope-title-wrap">
+                <span class="scope-pulse"></span>
+                <span class="scope-label">REAL-TIME GOOFY WAVE VISUALIZER</span>
+              </div>
+              <span class="scope-telemetry-freq" id="liveFreqNumber">BOOP READY!</span>
+            </div>
+
+            <div class="scope-canvas-wrap">
+              <canvas id="scopeCanvas" width="600" height="260"></canvas>
+            </div>
+
+            <div class="scope-footer-stats">
+              <div class="stat-cell">
+                <span class="cell-k">LAST SOUND PLAYED</span>
+                <span class="cell-v" id="lastSoundPlayedText">🦆 Duck Honk 340Hz</span>
+              </div>
+              <div class="stat-cell">
+                <span class="cell-k">SILLY METER</span>
+                <span class="cell-v" id="sillyMeterText">OFF THE CHARTS 🔥</span>
+              </div>
+              <div class="stat-cell">
+                <span class="cell-k">SYNTH ENGINE</span>
+                <span class="cell-v" id="synthStatusText">Web Audio Synth</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Secret Clicker Toy -->
+    <section class="secret-toy-section" id="secret-toy">
+      <div class="container">
+        <div class="toy-card silly-frame-border">
+          <div class="toy-header">
+            <span class="sub-label">PROCRASTINATION ZONE</span>
+            <h2 class="toy-title">THE EMERGENCY SILLY BUTTON</h2>
+            <p class="toy-desc">
+              Having a serious day? Click this big orange button to dispense instant dopamine, bouncy particle confetti, and squeaky noises.
+            </p>
+          </div>
+
+          <div class="toy-interactive-area">
+            <button class="big-silly-button" id="bigSillyButton" aria-label="Big Silly Button">
+              <span class="big-button-emoji">🦆</span>
+              <span class="big-button-text">PRESS FOR INSTANT SILLY</span>
+            </button>
+            <div class="toy-score-board">
+              <span class="toy-score-num" id="toyScoreDisplay">0</span>
+              <span class="toy-score-label">SILLY POINTS ACCUMULATED</span>
+              <p class="toy-achievement-text" id="toyAchievementText">"You are just beginning your silly journey..."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Manifesto / Why So Silly? -->
+    <section class="philosophy-section" id="manifesto">
+      <div class="container">
+        <div class="philosophy-wrap silly-manifesto-border">
+          <span class="manifest-tag">SILLY OATH · #001</span>
+          <blockquote class="manifest-quote">
+            “Video games are meant to make you smile until your face hurts. If our physics engine isn’t glitching a duck into low-Earth orbit at least once per session, we haven’t done our job. Life is too short for boring games!”
+          </blockquote>
+          
+          <div class="philosophy-footer">
+            <div class="director-info">
+              <span class="director-name">THE SILLY AMBIENT SQUAD</span>
+              <span class="director-role">Professional Goofballs &amp; Game Mechanics Designers</span>
+            </div>
+            <div class="coordinates-display">
+              <span class="coord-label">STUDIO FUEL</span>
+              <span class="coord-val">Cold Brew Coffee &amp; Cheesy Orange Snacks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Fan Mail Form -->
+    <section class="inquiry-section" id="inquiry">
+      <div class="container">
+        <div class="inquiry-card silly-frame-border">
+          <div class="inquiry-header">
+            <span class="sub-label">SAY HI TO THE SQUAD</span>
+            <h2 class="inquiry-title">SEND US A FUN MESSAGE</h2>
+            <p class="inquiry-lead">
+              Got a wild game idea? Want to tell us which level made you laugh? Or want to send high-fives to our duck animators? Drop a note below!
+            </p>
+          </div>
+
+          <form class="inquiry-form" id="inquiryForm" onsubmit="event.preventDefault(); window.handleInquirySubmit();">
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="clientName">YOUR GAMER TAG / NAME</label>
+                <input type="text" id="clientName" placeholder="e.g. Captain Quack / ToastMaster99" required>
+              </div>
+              <div class="form-field">
+                <label for="clientEmail">YOUR EMAIL (NO SPAM PROMISE)</label>
+                <input type="email" id="clientEmail" placeholder="e.g. gamer@sillygames.fun" required>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-field">
+                <label for="projectType">WHAT'S UP?</label>
+                <select id="projectType">
+                  <option value="fan-mail">Just wanted to say I love the duck 🦆</option>
+                  <option value="game-idea">I have an outrageously silly game idea</option>
+                  <option value="bug-report">I found a hilarious physics glitch</option>
+                  <option value="collab">I want to make a game with you</option>
+                  <option value="pizza">Sending virtual pizza slices 🍕</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="projectLocation">YOUR HOME PLANET</label>
+                <input type="text" id="projectLocation" placeholder="e.g. Earth (or Outer Space)">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="projectMessage">YOUR MESSAGE / SECRET CHEAT CODES</label>
+              <textarea id="projectMessage" rows="4" placeholder="Tell us your funniest joke, ideas for duck rollerblade upgrades, or just say hi..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary btn-bouncy btn-submit" id="submitInquiryBtn">
+                <span>Send This Goofy Note 🚀</span>
+              </button>
+              <span class="inquiry-notice">We read every message and reply between game jam rounds!</span>
+            </div>
+
+            <!-- Confirmation message -->
+            <div class="form-success-banner hidden" id="formSuccessBanner">
+              <span class="success-icon">🎉</span>
+              <div>
+                <strong>Message launched into space!</strong>
+                <p>The ducks and capybaras have verified your note. Expect a goofy response in your inbox soon!</p>
+              </div>
+            </div>
+          </form>
+
+          <div class="direct-contact-row">
+            <div class="contact-box">
+              <span class="contact-lbl">HEADQUARTERS</span>
+              <a href="mailto:ducks@ambientstudio.design" class="contact-val">ducks@ambientstudio.design</a>
+            </div>
+            <div class="contact-box">
+              <span class="contact-lbl">COMMUNITY DISCORD</span>
+              <a href="#hero" class="contact-val">discord.gg/ambient-silly</a>
+            </div>
+            <div class="contact-box">
+              <span class="contact-lbl">PIZZA DONATION HOTLINE</span>
+              <a href="#hero" class="contact-val">pizza@ambientstudio.design</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="studio-footer">
+    <div class="container footer-container">
+      <div class="footer-top-row">
+        <div class="footer-brand">
+          <div class="footer-brand-header">
+            <img src="assets/logo.jpg" alt="Ambient Studio Logo" class="footer-logo-img">
+            <span class="f-title">AMBIENT STUDIO 🎮</span>
+          </div>
+          <p class="f-desc">Just making silly ltlle games for you to enjoy. Black &amp; orange gradients forever.</p>
+        </div>
+
+        <div class="footer-links-col">
+          <span class="f-col-header">SILLY CREATIONS</span>
+          <span class="f-link-item">Duck Drift: Speedway Mayhem</span>
+          <span class="f-link-item">Toast-o-Matic 3000</span>
+          <span class="f-link-item">Capybara Zero-G Heist</span>
+        </div>
+
+        <div class="footer-links-col">
+          <span class="f-col-header">ARCADE SECTIONS</span>
+          <a href="#games" class="f-link">Game Archive</a>
+          <a href="#soundboard" class="f-link">Bleep Bloop Lab</a>
+          <a href="#secret-toy" class="f-link">Emergency Silly Button</a>
+        </div>
+
+        <div class="footer-links-col">
+          <span class="f-col-header">VERY REAL DISCLAIMER</span>
+          <span class="f-link-item">© 2026 Ambient Studio</span>
+          <span class="f-link-item">No ducks were harmed</span>
+          <span class="f-link-item">Certified 100% Silly</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <span class="f-coords">KEEP ON ROLLERBLADING · STAY UNBOTHERED · DON'T GET TOASTED</span>
+        <button class="back-to-top silly-wiggle-hover" id="backToTopBtn" aria-label="Return to top">
+          <span>Bounce To Top ⬆️</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       Interactive Modals Suite (Arcade, Wishlist, Demo, Playtest, Toast)
+       ========================================================================= -->
+
+  <!-- 1. Retro Arcade Cabinet Modal -->
+  <div class="ambient-modal-overlay" id="arcadeModal" aria-hidden="true">
+    <div class="ambient-modal-window" role="dialog" aria-modal="true" aria-labelledby="arcadeModalTitle">
+      <div class="modal-top-bar">
+        <div class="modal-title-row">
+          <span class="modal-title-tag">ARCADE v1.0</span>
+          <h3 id="arcadeModalTitle">🕹️ RETRO SILLY ARCADE CABINET</h3>
+        </div>
+        <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close Arcade">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="arcade-game-nav">
+          <button class="arcade-nav-tab active" data-game="duck" onclick="window.switchArcadeGame('duck')">
+            <span>🦆 Duck Drift</span>
+          </button>
+          <button class="arcade-nav-tab" data-game="toast" onclick="window.switchArcadeGame('toast')">
+            <span>🍞 Toast Jump</span>
+          </button>
+          <button class="arcade-nav-tab" data-game="capybara" onclick="window.switchArcadeGame('capybara')">
+            <span>🧀 Capybara Zero-G</span>
+          </button>
+        </div>
+
+        <div class="arcade-screen-wrap">
+          <canvas id="arcadeCanvas" class="arcade-canvas" width="640" height="300"></canvas>
+          <div class="arcade-hud-strip">
+            <div class="arcade-stat-group">
+              <div class="arcade-stat-item"><span>SCORE</span><strong id="arcadeScore">0000</strong></div>
+              <div class="arcade-stat-item"><span>HIGH</span><strong id="arcadeHighScore">0350</strong></div>
+              <div class="arcade-stat-item"><span>STATUS</span><strong id="arcadeStatus">READY</strong></div>
+            </div>
+            <div class="arcade-stat-group">
+              <div class="arcade-stat-item"><span>LIVES</span><strong id="arcadeLives">❤️❤️❤️</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arcade-controls-row">
+          <div class="arcade-btn-group" id="arcadeActionButtons">
+            <!-- Dynamic button controls rendered based on active game -->
+          </div>
+          <div class="arcade-btn-group">
+            <button class="arcade-ctrl-btn" onclick="window.restartCurrentGame()">
+              <span>🔄 Restart</span>
+            </button>
+            <button class="arcade-ctrl-btn" onclick="window.closeAllModals()">
+              <span>✕ Exit Cabinet</span>
+            </button>
+          </div>
+        </div>
+        <span class="arcade-hint-text">💡 Keyboard Controls: Arrow Keys or [A / D] to steer, [SPACE] to jump/thrust!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Steam Wishlist Modal -->
+  <div class="ambient-modal-overlay" id="wishlistModal" aria-hidden="true">
+    <div class="ambient-modal-window" style="max-width: 520px;" role="dialog" aria-modal="true">
+      <div class="modal-top-bar">
+        <div class="modal-title-row">
+          <span class="modal-title-tag">VALVE / STEAM</span>
+          <h3>★ STEAM WISHLIST</h3>
+        </div>
+        <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body wishlist-modal-body">
+        <div class="steam-logo-hero">🎮</div>
+        <h3 class="wishlist-title">ADDED TO STEAM WISHLIST!</h3>
+        <div class="wishlist-game-target" id="wishlistGameName">Duck Drift: Speedway Mayhem</div>
+        <p class="wishlist-count-banner">
+          Global Wishlist Hype: <strong id="wishlistCounterNumber">48,292</strong> fans (+1 You!)
+        </p>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); max-width: 400px; line-height: 1.5;">
+          You'll receive a silly high-priority ping on launch day. Zero microtransactions, zero DRM nonsense, 100% silly vibes.
+        </p>
+
+        <div class="wishlist-actions-row">
+          <button class="btn-primary btn-bouncy" id="copyShareBtn" onclick="window.copyWishlistLink()">
+            <span>📋 Copy Share Link</span>
+          </button>
+          <button class="btn-secondary btn-bouncy" onclick="window.closeAllModals()">
+            <span>Awesome! Continue Browsing</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Demo Download Modal -->
+  <div class="ambient-modal-overlay" id="demoModal" aria-hidden="true">
+    <div class="ambient-modal-window" style="max-width: 500px;" role="dialog" aria-modal="true">
+      <div class="modal-top-bar">
+        <div class="modal-title-row">
+          <span class="modal-title-tag">STANDALONE BUILD</span>
+          <h3>📦 INSTANT DEMO PACKAGE</h3>
+        </div>
+        <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="demo-box-inner">
+          <div style="font-size: 3rem;">💾</div>
+          <h4 style="font-family: var(--font-display); font-size: 1.3rem;" id="demoTargetTitle">Capybara Zero-G: Standalone Demo</h4>
+          <p style="font-size: 0.92rem; color: var(--text-secondary);">
+            Packaging executable single-file HTML5 playable demo...
+          </p>
+          <div class="demo-progress-track">
+            <div class="demo-progress-fill" id="demoProgressFill"></div>
+          </div>
+          <span id="demoStatusLabel" style="font-size: 0.85rem; color: var(--orange-yellow); font-family: var(--font-mono);">Generating offline package...</span>
+          <div style="margin-top: 0.75rem;">
+            <button class="btn-primary btn-bouncy" id="directDemoFileBtn" style="display: none;" onclick="window.triggerDirectFileDownload()">
+              <span>Save File Again (.html) ⬇️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Playtest Squad Modal -->
+  <div class="ambient-modal-overlay" id="playtestModal" aria-hidden="true">
+    <div class="ambient-modal-window" style="max-width: 560px;" role="dialog" aria-modal="true">
+      <div class="modal-top-bar">
+        <div class="modal-title-row">
+          <span class="modal-title-tag">BETA CORPS</span>
+          <h3>👾 PLAYTEST SQUAD RECRUITMENT</h3>
+        </div>
+        <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="playtestFormView">
+          <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Join the elite squad of playtesters breaking our game physics before release! Enter your gamer tag to mint your official Ambient Studio Test Pass:
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <input type="text" id="playtestTagInput" placeholder="Enter Gamer Tag (e.g. QuackLord99)" style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); color: #fff; padding: 0.75rem 1rem; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;">
+            <button class="btn-primary btn-bouncy" onclick="window.generateTesterPass()">
+              <span>Enlist Now 🚀</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="playtestPassView" style="display: none;">
+          <div class="tester-pass-card">
+            <div class="tester-pass-badge">
+              <span>OFFICIAL AMBIENT STUDIO TEST PILOT</span>
+              <strong id="testerPassId">#SILLY-4892</strong>
+            </div>
+            <div class="tester-pass-name" id="testerPassName">Captain Quack</div>
+            <div class="tester-pass-specs">
+              <div><span>CLEARANCE</span><strong>LEVEL 99: FULL CHAOS ACCESS</strong></div>
+              <div><span>ASSIGNED GAME</span><strong id="testerPassGame">Lawnmower in The Quantum Void</strong></div>
+              <div><span>BENEFITS</span><strong>Free Pizza &amp; Credits Roll</strong></div>
+              <div><span>STATUS</span><strong style="color: #4ADE80;">ACTIVE VIP TESTER ✓</strong></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;">
+            <button class="btn-primary btn-bouncy" onclick="window.copyTesterPassId()">
+              <span>📋 Copy Pass Code</span>
+            </button>
+            <button class="btn-secondary btn-bouncy" onclick="window.closeAllModals()">
+              <span>Awesome! Let's Go</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Toast Notification Banner -->
+  <div class="ambient-toast" id="ambientToast" role="status" aria-live="polite">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Action completed!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
