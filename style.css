@@ -838,6 +838,88 @@ main {
 }
 
 /* ==========================================================================
+   Production & Imagery Disclaimer Notice
+   ========================================================================== */
+.production-notice-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.15rem;
+  background: #0E0D12;
+  border: 1px solid rgba(255, 94, 0, 0.35);
+  border-left: 4px solid var(--orange-accent);
+  padding: 1.15rem 1.45rem;
+  margin-top: 2rem;
+  margin-bottom: 2.75rem;
+  border-radius: 4px;
+}
+
+.notice-icon-box {
+  color: var(--orange-bright);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notice-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.notice-title {
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--orange-yellow);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.notice-text {
+  color: #D2D2E0;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.hero-visual-caption {
+  margin-top: 0.9rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-visual-caption .caption-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  color: var(--orange-yellow);
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border-orange);
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  background: rgba(255, 94, 0, 0.08);
+}
+
+.hero-visual-caption .caption-text {
+  color: #A0A0B2;
+}
+
+@media (max-width: 640px) {
+  .production-notice-banner {
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem;
+  }
+}
+
+/* ==========================================================================
    Soundboard / Bleep-Bloop Lab
    ========================================================================== */
 .chamber-section {
