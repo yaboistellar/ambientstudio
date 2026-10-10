@@ -373,7 +373,7 @@ main {
   width: 20px;
   height: 14px;
   position: relative;
-  display: inline-block;
+  display: block;
 }
 
 .hamburger-inner,
@@ -384,11 +384,13 @@ main {
   background-color: var(--orange-bright);
   border-radius: 2px;
   position: absolute;
+  left: 0;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
 }
 
 .hamburger-inner {
   top: 50%;
+  left: 0;
   transform: translateY(-50%);
 }
 
