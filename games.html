@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-mode="arcade">
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Dynamic Ambient Mesh Backdrop (Black & Orange Gradient) -->
   <div class="ambient-gradient-mesh" id="ambientBackdrop" aria-hidden="true"></div>
   <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
@@ -39,7 +42,7 @@
 
       <div class="header-controls">
         <!-- Silly Music & Bleep Bloop Toggle -->
-        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" role="switch" aria-checked="false" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
           <span class="sound-emoji" id="soundEmoji">🕹️</span>
           <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
         </button>
@@ -54,7 +57,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- Games Hub Hero -->
     <section class="hero-section games-hub-hero">
       <div class="container">
@@ -81,12 +84,12 @@
 
         <!-- Filter & Search Controls Bar -->
         <div class="games-filter-bar">
-          <div class="filter-pills-row" id="filterPillsRow">
-            <button class="filter-pill active" data-filter="all">All Silly Games (4)</button>
-            <button class="filter-pill" data-filter="arcade">Arcade Chaos 🔥</button>
-            <button class="filter-pill" data-filter="food">Carb Survival 🍞</button>
-            <button class="filter-pill" data-filter="cozy">Cozy Chill 🧀</button>
-            <button class="filter-pill" data-filter="physics">Absurd Physics 🚀</button>
+          <div class="filter-pills-row" id="filterPillsRow" role="tablist" aria-label="Game categories">
+            <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All Silly Games (4)</button>
+            <button class="filter-pill" data-filter="arcade" role="tab" aria-selected="false">Arcade Chaos 🔥</button>
+            <button class="filter-pill" data-filter="food" role="tab" aria-selected="false">Carb Survival 🍞</button>
+            <button class="filter-pill" data-filter="cozy" role="tab" aria-selected="false">Cozy Chill 🧀</button>
+            <button class="filter-pill" data-filter="physics" role="tab" aria-selected="false">Absurd Physics 🚀</button>
           </div>
 
           <div class="games-search-box">
@@ -376,7 +379,7 @@
         </div>
 
         <div class="arcade-screen-wrap">
-          <canvas id="arcadeCanvas" class="arcade-canvas" width="640" height="300"></canvas>
+          <canvas id="arcadeCanvas" class="arcade-canvas" width="640" height="300" role="img" aria-label="Interactive retro arcade game canvas"></canvas>
           <div class="arcade-hud-strip">
             <div class="arcade-stat-group">
               <div class="arcade-stat-item"><span>SCORE</span><strong id="arcadeScore">0000</strong></div>
@@ -409,11 +412,11 @@
 
   <!-- 2. Steam Wishlist Modal -->
   <div class="ambient-modal-overlay" id="wishlistModal" aria-hidden="true">
-    <div class="ambient-modal-window" style="max-width: 520px;" role="dialog" aria-modal="true">
+    <div class="ambient-modal-window" style="max-width: 520px;" role="dialog" aria-modal="true" aria-labelledby="wishlistModalTitle">
       <div class="modal-top-bar">
         <div class="modal-title-row">
           <span class="modal-title-tag">VALVE / STEAM</span>
-          <h3>★ STEAM WISHLIST</h3>
+          <h3 id="wishlistModalTitle">★ STEAM WISHLIST</h3>
         </div>
         <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
       </div>
@@ -443,11 +446,11 @@
 
   <!-- 3. Demo Download Modal -->
   <div class="ambient-modal-overlay" id="demoModal" aria-hidden="true">
-    <div class="ambient-modal-window" style="max-width: 500px;" role="dialog" aria-modal="true">
+    <div class="ambient-modal-window" style="max-width: 500px;" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
       <div class="modal-top-bar">
         <div class="modal-title-row">
           <span class="modal-title-tag">STANDALONE BUILD</span>
-          <h3>📦 INSTANT DEMO PACKAGE</h3>
+          <h3 id="demoModalTitle">📦 INSTANT DEMO PACKAGE</h3>
         </div>
         <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
       </div>
@@ -475,11 +478,11 @@
 
   <!-- 4. Playtest Squad Modal -->
   <div class="ambient-modal-overlay" id="playtestModal" aria-hidden="true">
-    <div class="ambient-modal-window" style="max-width: 560px;" role="dialog" aria-modal="true">
+    <div class="ambient-modal-window" style="max-width: 560px;" role="dialog" aria-modal="true" aria-labelledby="playtestModalTitle">
       <div class="modal-top-bar">
         <div class="modal-title-row">
           <span class="modal-title-tag">BETA CORPS</span>
-          <h3>👾 PLAYTEST SQUAD RECRUITMENT</h3>
+          <h3 id="playtestModalTitle">👾 PLAYTEST SQUAD RECRUITMENT</h3>
         </div>
         <button class="modal-close-btn" onclick="window.closeAllModals()" aria-label="Close">✕</button>
       </div>
@@ -490,7 +493,7 @@
             Join the elite squad of playtesters breaking our game physics before release! Enter your gamer tag to mint your official Ambient Studio Test Pass:
           </p>
           <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-            <input type="text" id="playtestTagInput" placeholder="Enter Gamer Tag (e.g. QuackLord99)" style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); color: #fff; padding: 0.75rem 1rem; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;">
+            <input type="text" id="playtestTagInput" placeholder="Enter Gamer Tag (e.g. QuackLord99)" aria-label="Enter Gamer Tag" style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); color: #fff; padding: 0.75rem 1rem; border-radius: 8px; font-family: var(--font-body); font-size: 1rem;">
             <button class="btn-primary btn-bouncy" onclick="window.generateTesterPass()">
               <span>Enlist Now 🚀</span>
             </button>

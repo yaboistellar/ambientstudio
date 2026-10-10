@@ -22,11 +22,35 @@
     return audioCtx;
   }
 
+  // --- Accessibility Screen Reader Announcer ---
+  window.announceA11y = function (message) {
+    let announcer = document.getElementById('a11yAnnouncer');
+    if (!announcer) {
+      announcer = document.createElement('div');
+      announcer.id = 'a11yAnnouncer';
+      announcer.className = 'sr-only';
+      announcer.setAttribute('role', 'status');
+      announcer.setAttribute('aria-live', 'polite');
+      announcer.setAttribute('aria-atomic', 'true');
+      document.body.appendChild(announcer);
+    }
+    announcer.textContent = '';
+    setTimeout(() => {
+      announcer.textContent = message;
+    }, 50);
+  };
+
   // --- Floating Comic Sound Bubbles & Confetti FX ---
   window.showComicSoundBubble = function (target, text) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.announceA11y(text.replace(/[*#]/g, ''));
+      return;
+    }
+
     const bubble = document.createElement('div');
     bubble.className = 'comic-sound-bubble';
     bubble.textContent = text;
+    bubble.setAttribute('aria-hidden', 'true');
 
     if (target && target.getBoundingClientRect) {
       const rect = target.getBoundingClientRect();
@@ -45,6 +69,7 @@
   };
 
   window.fireConfetti = function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const colors = ['#FF5E00', '#FFAE19', '#EA580C', '#FFFFFF', '#66C0F4'];
     for (let i = 0; i < 35; i++) {
       const conf = document.createElement('div');
@@ -305,8 +330,10 @@
       const ctx = getAudioContext();
       isArcadeMusicActive = true;
       btn.classList.add('playing');
+      btn.setAttribute('aria-checked', 'true');
       label.textContent = 'Arcade Tune: ON 🎶';
       emoji.textContent = '🔊';
+      window.announceA11y('Arcade tune turned on');
 
       const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
       let step = 0;
@@ -356,8 +383,10 @@
     function stopArcadeTune() {
       isArcadeMusicActive = false;
       btn.classList.remove('playing');
+      btn.setAttribute('aria-checked', 'false');
       label.textContent = 'Arcade Tune: Off';
       emoji.textContent = '🕹️';
+      window.announceA11y('Arcade tune turned off');
       if (musicInterval) {
         clearInterval(musicInterval);
         musicInterval = null;
@@ -388,31 +417,38 @@
     document.getElementById('soundBtnQuack')?.addEventListener('click', () => {
       highlightPreset('soundBtnQuack');
       window.triggerSillyQuack();
+      window.announceA11y('Playing sound: The Mega Duck Honk');
     });
     document.getElementById('soundBtnBoing')?.addEventListener('click', () => {
       highlightPreset('soundBtnBoing');
       window.triggerSillyBoing();
+      window.announceA11y('Playing sound: The Trampoline Sprog');
     });
     document.getElementById('soundBtnLaser')?.addEventListener('click', () => {
       highlightPreset('soundBtnLaser');
       window.triggerSillyLaser();
+      window.announceA11y('Playing sound: Space Cheese Blaster');
     });
     document.getElementById('soundBtnWomp')?.addEventListener('click', () => {
       highlightPreset('soundBtnWomp');
       window.triggerSillyWomp();
+      window.announceA11y('Playing sound: Sad Trombone of Defeat');
     });
     document.getElementById('soundBtnEngine')?.addEventListener('click', () => {
       highlightPreset('soundBtnEngine');
       window.triggerSillyEngine();
+      window.announceA11y('Playing sound: Void Pull-Cord Rev');
     });
     document.getElementById('soundBtnChime')?.addEventListener('click', () => {
       highlightPreset('soundBtnChime');
       window.triggerChime();
+      window.announceA11y('Playing sound: The Steam Wishlist Arpeggio');
     });
     document.getElementById('soundBtnFanfare')?.addEventListener('click', () => {
       highlightPreset('soundBtnFanfare');
       window.triggerSillyFanfare();
       window.fireConfetti();
+      window.announceA11y('Playing sound: Champion Confetti Fanfare');
     });
 
     // Custom Live Synthesizer Playground Controls
@@ -421,18 +457,27 @@
 
     document.querySelectorAll('.waveform-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.waveform-btn').forEach((b) => b.classList.remove('active'));
+        document.querySelectorAll('.waveform-btn').forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         customWaveType = btn.dataset.wave || 'sawtooth';
+        window.announceA11y(`Selected ${customWaveType} waveform`);
       });
     });
 
     const freqInput = document.getElementById('freqSlider');
     const freqBadge = document.getElementById('freqSliderDisplay');
     if (freqInput && freqBadge) {
+      freqInput.setAttribute('aria-valuenow', '440');
+      freqInput.setAttribute('aria-valuetext', '440 Hertz');
       freqInput.addEventListener('input', (e) => {
         customFreqVal = parseInt(e.target.value, 10);
         freqBadge.textContent = `${customFreqVal} Hz`;
+        freqInput.setAttribute('aria-valuenow', customFreqVal);
+        freqInput.setAttribute('aria-valuetext', `${customFreqVal} Hertz`);
       });
     }
 
@@ -550,6 +595,7 @@
       boopBadge.textContent = `${boopCount} boops!`;
       window.triggerSillyQuack();
       spawnFloatingToast(e.clientX, e.clientY, '+1 Quack! 🦆');
+      window.announceA11y(`Duck booped! Total: ${boopCount} boops.`);
     });
   }
 
@@ -572,15 +618,21 @@
     let selectedButtonSoundMode = 'random';
     document.querySelectorAll('.btn-mode-pill').forEach((pill) => {
       pill.addEventListener('click', () => {
-        document.querySelectorAll('.btn-mode-pill').forEach((p) => p.classList.remove('active'));
+        document.querySelectorAll('.btn-mode-pill').forEach((p) => {
+          p.classList.remove('active');
+          p.setAttribute('aria-checked', 'false');
+        });
         pill.classList.add('active');
+        pill.setAttribute('aria-checked', 'true');
         selectedButtonSoundMode = pill.dataset.mode || 'random';
+        window.announceA11y(`Sound mode changed to ${pill.textContent.trim()}`);
       });
     });
 
     btn.addEventListener('click', (e) => {
       sillyPoints++;
       scoreDisplay.textContent = sillyPoints;
+      window.announceA11y(`Silly point added. Total: ${sillyPoints} points.`);
 
       // Play sound based on mode
       if (selectedButtonSoundMode === 'quack') {
@@ -613,6 +665,8 @@
         if (sillyPoints >= req && !card.classList.contains('unlocked')) {
           card.classList.add('unlocked');
           window.fireConfetti();
+          const title = card.querySelector('.achievement-title')?.textContent || 'Achievement';
+          window.announceA11y(`Achievement unlocked: ${title}!`);
         }
       });
 
@@ -628,6 +682,7 @@
       if (achievementDisplay) achievementDisplay.textContent = '"Back to zero! Press again to restart..."';
       document.querySelectorAll('.achievement-card').forEach((card) => card.classList.remove('unlocked'));
       window.triggerSillyWomp();
+      window.announceA11y('Silly score reset to zero.');
     });
   }
 
@@ -788,12 +843,18 @@
         if (visibleCount === 0) noResults.classList.remove('hidden');
         else noResults.classList.add('hidden');
       }
+
+      window.announceA11y(`Showing ${visibleCount} silly game${visibleCount === 1 ? '' : 's'}.`);
     }
 
     filterPills.forEach((pill) => {
       pill.addEventListener('click', () => {
-        filterPills.forEach((p) => p.classList.remove('active'));
+        filterPills.forEach((p) => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
         pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
         activeFilter = pill.getAttribute('data-filter');
         window.triggerSillyBoing();
         applyFilter();
@@ -809,23 +870,49 @@
   }
 
   // --- 9. Interactive Modals Suite (Wishlist, Demo, Playtest, Toast) ---
+  let lastActiveModalTrigger = null;
+
   window.openModal = function (modalId) {
-    window.closeAllModals();
+    lastActiveModalTrigger = document.activeElement;
+    window.closeAllModals(false);
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+
+      const titleEl = modal.querySelector('h2, h3');
+      if (titleEl) {
+        window.announceA11y(`Opened dialog: ${titleEl.textContent.trim()}`);
+      }
+
+      setTimeout(() => {
+        const focusable = modal.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]');
+        if (focusable.length > 0) {
+          focusable[0].focus();
+        }
+      }, 60);
     }
   };
 
-  window.closeAllModals = function () {
+  window.closeAllModals = function (restoreFocus = true) {
+    let closedAny = false;
     document.querySelectorAll('.ambient-modal-overlay').forEach((modal) => {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
+      if (modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        closedAny = true;
+      }
     });
     document.body.style.overflow = '';
     stopArcadeEngine();
+    if (closedAny) {
+      window.announceA11y('Dialog closed');
+    }
+    if (restoreFocus && lastActiveModalTrigger && typeof lastActiveModalTrigger.focus === 'function') {
+      lastActiveModalTrigger.focus();
+      lastActiveModalTrigger = null;
+    }
   };
 
   window.showToast = function (msg, icon = '✨') {
@@ -837,6 +924,7 @@
     msgEl.textContent = msg;
     if (iconEl) iconEl.textContent = icon;
     toast.classList.add('active');
+    window.announceA11y(msg);
 
     setTimeout(() => {
       toast.classList.remove('active');
@@ -996,9 +1084,38 @@
     });
   };
 
-  // Close modals on Escape key or backdrop click
+  // Modal Accessibility: Escape key, Backdrop click, and Focus Trap
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') window.closeAllModals();
+    const activeModal = document.querySelector('.ambient-modal-overlay.active');
+    if (!activeModal) return;
+
+    if (e.key === 'Escape') {
+      window.closeAllModals();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const focusables = Array.from(activeModal.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex="0"]'
+      )).filter((el) => el.offsetParent !== null);
+
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
   });
 
   document.querySelectorAll('.ambient-modal-overlay').forEach((overlay) => {
@@ -1880,14 +1997,18 @@
       mainNav.classList.add('open');
       backdrop.classList.add('active');
       document.body.classList.add('mobile-nav-locked');
+      window.announceA11y('Navigation menu opened');
     }
 
-    function closeMenu() {
+    function closeMenu(restoreFocus = true) {
+      if (!mainNav.classList.contains('open')) return;
       toggleBtn.classList.remove('open');
       toggleBtn.setAttribute('aria-expanded', 'false');
       mainNav.classList.remove('open');
       backdrop.classList.remove('active');
       document.body.classList.remove('mobile-nav-locked');
+      window.announceA11y('Navigation menu closed');
+      if (restoreFocus) toggleBtn.focus();
     }
 
     toggleBtn.addEventListener('click', (e) => {

@@ -13,7 +13,7 @@
   
   --text-primary: #FFFFFF;
   --text-secondary: #B2B2C0;
-  --text-muted: #7E7E90;
+  --text-muted: #9494A8;
   
   /* Molten Orange / Warm Amber Scales */
   --orange-accent: #FF5E00;
@@ -66,6 +66,63 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+}
+
+/* ==========================================================================
+   Accessibility Utilities (WCAG AA/AAA Compliance)
+   ========================================================================== */
+
+/* Skip to Main Content Link */
+.skip-to-content {
+  position: absolute;
+  top: -120px;
+  left: 1.25rem;
+  background: var(--orange-accent);
+  color: #000000 !important;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  border: 2px solid var(--orange-yellow);
+  z-index: 100000;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 1.25rem;
+  outline: 3px solid #FFFFFF;
+  outline-offset: 3px;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Unmistakable Focus Visible Ring */
+:focus-visible {
+  outline: 2px solid var(--orange-yellow) !important;
+  outline-offset: 3px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--orange-yellow) !important;
+  outline-offset: 3px !important;
 }
 
 /* Black & Orange Gradient Mesh */
@@ -1086,8 +1143,10 @@ main {
 }
 
 .preset-name {
+  display: block;
   font-family: var(--font-display);
   font-size: 1.35rem;
+  font-weight: 700;
   color: #FFFFFF;
 }
 
@@ -3341,5 +3400,32 @@ main {
     gap: 0.35rem;
   }
 }
+
+/* ==========================================================================
+   Reduced Motion Preferences (WCAG 2.3.3 & 2.2.2)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .silly-wiggle-hover:hover,
+  .telemetry-dot,
+  .comic-sound-bubble,
+  .ticker-track,
+  .ambient-toast {
+    animation: none !important;
+  }
+
+  .ticker-track {
+    transform: none !important;
+  }
+}
+
 
 

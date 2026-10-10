@@ -14,7 +14,10 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 </head>
-<body>
+<body data-mode="arcade">
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Ambient Audio Mesh & Bouncy Particles Canvas -->
   <div class="ambient-gradient-mesh" aria-hidden="true"></div>
   <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
@@ -39,7 +42,7 @@
 
       <div class="header-controls">
         <!-- Silly Music & Bleep Bloop Toggle -->
-        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" role="switch" aria-checked="false" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
           <span class="sound-emoji" id="soundEmoji">🕹️</span>
           <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
         </button>
@@ -54,7 +57,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- Silly Button Hero Section -->
     <section class="hero-section button-hero-section">
       <div class="container">
@@ -92,13 +95,13 @@
             </p>
 
             <!-- Sound Mode Selector -->
-            <div class="button-modes-row">
+            <div class="button-modes-row" role="radiogroup" aria-label="Sound modes">
               <span style="font-family: var(--font-pixel); font-size: 0.7rem; color: var(--text-muted); margin-right: 0.4rem;">SOUND MODE:</span>
-              <button class="btn-mode-pill active" data-mode="random">Random Chaos 🎲</button>
-              <button class="btn-mode-pill" data-mode="quack">Duck Quacks 🦆</button>
-              <button class="btn-mode-pill" data-mode="boing">Spring Boings 🦘</button>
-              <button class="btn-mode-pill" data-mode="laser">Space Lasers 👾</button>
-              <button class="btn-mode-pill" data-mode="mower">Void Mower ⚙️</button>
+              <button class="btn-mode-pill active" data-mode="random" role="radio" aria-checked="true">Random Chaos 🎲</button>
+              <button class="btn-mode-pill" data-mode="quack" role="radio" aria-checked="false">Duck Quacks 🦆</button>
+              <button class="btn-mode-pill" data-mode="boing" role="radio" aria-checked="false">Spring Boings 🦘</button>
+              <button class="btn-mode-pill" data-mode="laser" role="radio" aria-checked="false">Space Lasers 👾</button>
+              <button class="btn-mode-pill" data-mode="mower" role="radio" aria-checked="false">Void Mower ⚙️</button>
             </div>
           </div>
 
@@ -108,7 +111,7 @@
               <span class="big-button-text">PRESS THE SILLY BUTTON</span>
             </button>
 
-            <div class="toy-score-board">
+            <div class="toy-score-board" aria-live="polite" aria-atomic="true">
               <span class="toy-score-num" id="toyScoreDisplay">0</span>
               <span class="toy-score-label">SILLY POINTS ACCUMULATED</span>
               <p class="toy-achievement-text" id="toyAchievementText">"You are just beginning your silly journey..."</p>

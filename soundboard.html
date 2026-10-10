@@ -14,7 +14,10 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
 </head>
-<body>
+<body data-mode="arcade">
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
   <!-- Ambient Audio Mesh & Bouncy Particles Canvas -->
   <div class="ambient-gradient-mesh" aria-hidden="true"></div>
   <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
@@ -39,7 +42,7 @@
 
       <div class="header-controls">
         <!-- Silly Music & Bleep Bloop Toggle -->
-        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" role="switch" aria-checked="false" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
           <span class="sound-emoji" id="soundEmoji">🕹️</span>
           <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
         </button>
@@ -54,7 +57,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- Lab Hero Section -->
     <section class="hero-section lab-hero-section">
       <div class="container">
@@ -112,7 +115,7 @@
                 <span class="preset-hz">🦆 QUACK ENGINE</span>
                 <span class="preset-indicator">CLICK ME!</span>
               </div>
-              <h2 class="preset-name">The Mega Duck Honk</h2>
+              <span class="preset-name">The Mega Duck Honk</span>
               <p class="preset-desc">Frequency-modulated sawtooth carrier with a 36Hz sine wave formant filter. Delivers the authentic sound of an angry duck on rocket skates.</p>
               <div class="preset-specs">
                 <span>Carrier: 320Hz → 190Hz</span>
@@ -127,7 +130,7 @@
                 <span class="preset-hz">🦘 BOING JUMP</span>
                 <span class="preset-indicator">SPRINGY!</span>
               </div>
-              <h2 class="preset-name">The Trampoline Sprog</h2>
+              <span class="preset-name">The Trampoline Sprog</span>
               <p class="preset-desc">Classic arcade upward logarithmic pitch ramp with quick exponential gain decay. Perfect for slices of sourdough leaping over kitchen forks.</p>
               <div class="preset-specs">
                 <span>Sweep: 110Hz → 680Hz</span>
@@ -142,7 +145,7 @@
                 <span class="preset-hz">👾 PEW PEW ZAP</span>
                 <span class="preset-indicator">ARCADE!</span>
               </div>
-              <h2 class="preset-name">Space Cheese Blaster</h2>
+              <span class="preset-name">Space Cheese Blaster</span>
               <p class="preset-desc">Hyper-fast downward exponential pitch dive with square wave overtone bite. Certified capybara space defense technology.</p>
               <div class="preset-specs">
                 <span>Sweep: 1100Hz → 90Hz</span>
@@ -157,7 +160,7 @@
                 <span class="preset-hz">⚙️ QUANTUM MOWER</span>
                 <span class="preset-indicator">HIGH RPM!</span>
               </div>
-              <h2 class="preset-name">4.5 HP Void Pull-Cord Rev</h2>
+              <span class="preset-name">4.5 HP Void Pull-Cord Rev</span>
               <p class="preset-desc">Gritty sawtooth vibration simulating an eager suburban dad trying to start a pull-cord lawnmower on the edge of a black hole.</p>
               <div class="preset-specs">
                 <span>RPM: 65Hz → 145Hz</span>
@@ -172,7 +175,7 @@
                 <span class="preset-hz">🔔 GOLDEN CHIMES</span>
                 <span class="preset-indicator">HARMONIC!</span>
               </div>
-              <h2 class="preset-name">The Steam Wishlist Arpeggio</h2>
+              <span class="preset-name">The Steam Wishlist Arpeggio</span>
               <p class="preset-desc">A sparkling 4-note ascending major arpeggio in C-major (C5, E5, G5, C6) triggering joyous dopamine whenever a game gets wishlisted.</p>
               <div class="preset-specs">
                 <span>Scale: C5 → C6 (1046Hz)</span>
@@ -187,7 +190,7 @@
                 <span class="preset-hz">🎺 WOMP-WOMP</span>
                 <span class="preset-indicator">FAIL HORN!</span>
               </div>
-              <h2 class="preset-name">Sad Trombone of Defeat</h2>
+              <span class="preset-name">Sad Trombone of Defeat</span>
               <p class="preset-desc">Dual descending pitch triangle waves tuned to a minor second drop. Instantly turns an arcade game-over screen into joyful laughter.</p>
               <div class="preset-specs">
                 <span>Notes: 230Hz → 170Hz</span>
@@ -202,7 +205,7 @@
                 <span class="preset-hz">🏆 VICTORY MARCH</span>
                 <span class="preset-indicator">CONFETTI!</span>
               </div>
-              <h2 class="preset-name">Champion Confetti Fanfare</h2>
+              <span class="preset-name">Champion Confetti Fanfare</span>
               <p class="preset-desc">Triumphant 4-note brassy brass arpeggio accompanied by physics-driven confetti cannon burst across the entire screen.</p>
               <div class="preset-specs">
                 <span>Scale: A4 → A5 (880Hz)</span>
@@ -224,7 +227,7 @@
             </div>
 
             <div class="scope-canvas-wrap">
-              <canvas id="scopeCanvas" width="600" height="260"></canvas>
+              <canvas id="scopeCanvas" width="600" height="260" role="img" aria-label="Real-time waveform oscilloscope visualizer"></canvas>
             </div>
 
             <!-- Custom Live Synth Controls -->
