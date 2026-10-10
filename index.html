@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ambient Studio — Just Making Silly Ltlle Games For You To Enjoy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ambient Studio — Just Making Silly Little Games For You To Enjoy</title>
   <meta name="description" content="Ambient Studio is a delightfully goofy indie gaming laboratory crafting black and orange arcade chaos, cozy chill vibes, and silly little games for everyone.">
   
   <!-- Modern Creative Typography (Space Grotesk + Outfit) -->
@@ -28,21 +28,29 @@
         <span class="brand-tag">LVL 99</span>
       </a>
 
+      <nav class="nav-links" id="mainNav">
+        <a href="index.html" class="nav-anchor nav-anchor-active">Home</a>
+        <a href="games.html" class="nav-anchor">Our Games 🎮</a>
+        <a href="soundboard.html" class="nav-anchor">Bleep Bloop Lab 🔊</a>
+        <a href="silly-button.html" class="nav-anchor">Silly Button 🚨</a>
+        <a href="#manifesto" class="nav-anchor">Why So Silly?</a>
+        <a href="#inquiry" class="nav-anchor nav-anchor-primary">Say Hewwo 👾</a>
+      </nav>
 
-        <nav class="nav-links">
-          <a href="index.html" class="nav-anchor nav-anchor-active">Home</a>
-          <a href="games.html" class="nav-anchor">Our Games 🎮</a>
-          <a href="soundboard.html" class="nav-anchor">Bleep Bloop Lab 🔊</a>
-          <a href="silly-button.html" class="nav-anchor">Silly Button 🚨</a>
-          <a href="#manifesto" class="nav-anchor">Why So Silly?</a>
-          <a href="#inquiry" class="nav-anchor nav-anchor-primary">Say Hewwo 👾</a>
-        </nav>
+      <div class="header-controls">
+        <!-- Silly Music & Bleep Bloop Toggle -->
+        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+          <span class="sound-emoji" id="soundEmoji">🕹️</span>
+          <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
+        </button>
 
-      <!-- Silly Music & Bleep Bloop Toggle -->
-      <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
-        <span class="sound-emoji" id="soundEmoji">🕹️</span>
-        <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
-      </button>
+        <!-- Mobile Navigation Menu Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNav">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -78,7 +86,7 @@
 
           <h1 class="hero-title">
             <span class="title-line">JUST MAKING SILLY</span>
-            <span class="title-line title-gradient">LTLLE GAMES FOR YOU TO ENJOY</span>
+            <span class="title-line title-gradient">LITTLE GAMES FOR YOU TO ENJOY</span>
           </h1>
 
           <p class="hero-subtext">
@@ -410,7 +418,7 @@
             <img src="assets/logo.jpg" alt="Ambient Studio Logo" class="footer-logo-img">
             <span class="f-title">AMBIENT STUDIO 🎮</span>
           </div>
-          <p class="f-desc">Just making silly ltlle games for you to enjoy. Black &amp; orange gradients forever.</p>
+          <p class="f-desc">Just making silly little games for you to enjoy. Black &amp; orange gradients forever.</p>
         </div>
 
         <div class="footer-links-col">

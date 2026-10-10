@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0; url=silly-button.html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>The Silly Button — Instant Dopamine Fidget Toy | Ambient Studio</title>
   <link rel="canonical" href="silly-button.html">
   <script>window.location.replace("silly-button.html");</script>
@@ -30,7 +30,7 @@
         <span class="brand-tag">DO NOT PUSH</span>
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" id="mainNav">
         <a href="index.html" class="nav-anchor">Home</a>
         <a href="games.html" class="nav-anchor">Our Games 🎮</a>
         <a href="soundboard.html" class="nav-anchor">Bleep Bloop Lab 🔊</a>
@@ -39,11 +39,20 @@
         <a href="#inquiry" class="nav-anchor nav-anchor-primary" onclick="event.preventDefault(); window.scrollToInquiry();">Say Hewwo 👾</a>
       </nav>
 
-      <!-- Silly Music & Bleep Bloop Toggle -->
-      <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
-        <span class="sound-emoji" id="soundEmoji">🕹️</span>
-        <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
-      </button>
+      <div class="header-controls">
+        <!-- Silly Music & Bleep Bloop Toggle -->
+        <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+          <span class="sound-emoji" id="soundEmoji">🕹️</span>
+          <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
+        </button>
+
+        <!-- Mobile Navigation Menu Toggle -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNav">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
     </div>
   </header>
 

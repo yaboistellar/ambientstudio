@@ -30,8 +30,11 @@
 
     if (target && target.getBoundingClientRect) {
       const rect = target.getBoundingClientRect();
-      bubble.style.left = `${rect.left + rect.width / 2}px`;
-      bubble.style.top = `${rect.top - 12}px`;
+      const rawLeft = rect.left + rect.width / 2;
+      const clampPadding = 70;
+      const clampedLeft = Math.max(clampPadding, Math.min(window.innerWidth - clampPadding, rawLeft));
+      bubble.style.left = `${clampedLeft}px`;
+      bubble.style.top = `${Math.max(15, rect.top - 12)}px`;
     } else {
       bubble.style.left = '50vw';
       bubble.style.top = '40vh';
@@ -1045,16 +1048,16 @@
 
     if (activeArcadeGame === 'duck') {
       container.innerHTML = `
-        <button class="arcade-ctrl-btn" onmousedown="window.arcadeSteerLeft()" onmouseup="window.arcadeStopSteer()" ontouchstart="window.arcadeSteerLeft()" ontouchend="window.arcadeStopSteer()">◀ Steer Left</button>
-        <button class="arcade-ctrl-btn" onmousedown="window.arcadeSteerRight()" onmouseup="window.arcadeStopSteer()" ontouchstart="window.arcadeSteerRight()" ontouchend="window.arcadeStopSteer()">Steer Right ▶</button>
+        <button class="arcade-ctrl-btn" onmousedown="window.arcadeSteerLeft(event)" onmouseup="window.arcadeStopSteer(event)" ontouchstart="window.arcadeSteerLeft(event)" ontouchend="window.arcadeStopSteer(event)">◀ Steer Left</button>
+        <button class="arcade-ctrl-btn" onmousedown="window.arcadeSteerRight(event)" onmouseup="window.arcadeStopSteer(event)" ontouchstart="window.arcadeSteerRight(event)" ontouchend="window.arcadeStopSteer(event)">Steer Right ▶</button>
       `;
     } else if (activeArcadeGame === 'toast') {
       container.innerHTML = `
-        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onclick="window.arcadeJump()">🦘 Jump! (Space)</button>
+        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onclick="window.arcadeJump(event)" ontouchstart="window.arcadeJump(event)">🦘 Jump! (Space)</button>
       `;
     } else if (activeArcadeGame === 'capybara') {
       container.innerHTML = `
-        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onmousedown="window.arcadeBoost()" ontouchstart="window.arcadeBoost()">🚀 Thruster (Space)</button>
+        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onmousedown="window.arcadeBoost(event)" ontouchstart="window.arcadeBoost(event)">🚀 Thruster (Space)</button>
       `;
     }
   }
@@ -1076,19 +1079,23 @@
     return false;
   }
 
-  window.arcadeSteerLeft = function () {
+  window.arcadeSteerLeft = function (e) {
+    if (e && e.cancelable) e.preventDefault();
     startPlayingIfReady();
     keys.left = true;
   };
-  window.arcadeSteerRight = function () {
+  window.arcadeSteerRight = function (e) {
+    if (e && e.cancelable) e.preventDefault();
     startPlayingIfReady();
     keys.right = true;
   };
-  window.arcadeStopSteer = function () {
+  window.arcadeStopSteer = function (e) {
+    if (e && e.cancelable) e.preventDefault();
     keys.left = false;
     keys.right = false;
   };
-  window.arcadeJump = function () {
+  window.arcadeJump = function (e) {
+    if (e && e.cancelable) e.preventDefault();
     startPlayingIfReady();
     if (activeArcadeGame === 'toast' && toastOnGround && arcadeGameState === 'PLAYING') {
       toastVy = -11.5;
@@ -1096,7 +1103,8 @@
       window.triggerSillyBoing();
     }
   };
-  window.arcadeBoost = function () {
+  window.arcadeBoost = function (e) {
+    if (e && e.cancelable) e.preventDefault();
     startPlayingIfReady();
     if (activeArcadeGame === 'capybara' && arcadeGameState === 'PLAYING') {
       capyVy = -4.5;
@@ -1252,8 +1260,8 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // Attach click to start / click to control
-    canvas.onclick = function (e) {
+    // Attach click and touch to start / steer
+    function handleArcadePointerInput(clientX) {
       if (startPlayingIfReady()) return;
       if (activeArcadeGame === 'toast') {
         window.arcadeJump();
@@ -1261,12 +1269,22 @@
         window.arcadeBoost();
       } else if (activeArcadeGame === 'duck') {
         const rect = canvas.getBoundingClientRect();
-        const clickX = ((e.clientX - rect.left) / rect.width) * canvas.width;
+        const clickX = ((clientX - rect.left) / rect.width) * canvas.width;
         if (clickX < duckX) duckX -= 50;
         else duckX += 50;
         duckX = Math.max(160, Math.min(480, duckX));
       }
+    }
+
+    canvas.onclick = function (e) {
+      handleArcadePointerInput(e.clientX);
     };
+
+    canvas.addEventListener('touchstart', function (e) {
+      if (e.cancelable) e.preventDefault();
+      const touch = e.touches[0];
+      if (touch) handleArcadePointerInput(touch.clientX);
+    }, { passive: false });
 
     function loop() {
       if (!arcadeRunning) return;
@@ -1842,8 +1860,72 @@
     ctx.restore();
   }
 
+  // --- 11. Mobile Navigation Drawer Controller ---
+  function initMobileNav() {
+    const toggleBtn = document.getElementById('mobileNavToggle');
+    const mainNav = document.getElementById('mainNav') || document.querySelector('.nav-links');
+    if (!toggleBtn || !mainNav) return;
+
+    let backdrop = document.getElementById('mobileNavBackdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'mobileNavBackdrop';
+      backdrop.className = 'mobile-nav-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    function openMenu() {
+      toggleBtn.classList.add('open');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      mainNav.classList.add('open');
+      backdrop.classList.add('active');
+      document.body.classList.add('mobile-nav-locked');
+    }
+
+    function closeMenu() {
+      toggleBtn.classList.remove('open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      mainNav.classList.remove('open');
+      backdrop.classList.remove('active');
+      document.body.classList.remove('mobile-nav-locked');
+    }
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mainNav.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    backdrop.addEventListener('click', closeMenu);
+
+    // Close on any link click
+    mainNav.querySelectorAll('.nav-anchor').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860 && mainNav.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+  }
+
   // --- Initialize on DOM Loaded ---
   document.addEventListener('DOMContentLoaded', () => {
+    initMobileNav();
     initArcadeMusic();
     initScopeCanvas();
     initDuckBooper();
