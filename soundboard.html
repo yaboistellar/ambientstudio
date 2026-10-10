@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Bleep-Bloop Lab — 8-Bit Web Audio Synthesizer | Ambient Studio</title>
+  <meta name="description" content="Explore Ambient Studio's interactive Bleep-Bloop Lab. Real-time Web Audio API FM synthesis, duck quack modulations, bouncy oscilloscope, and custom waveform synth.">
+  
+  <!-- Google Fonts: Space Grotesk, Outfit, Silkscreen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+</head>
+<body>
+  <!-- Ambient Audio Mesh & Bouncy Particles Canvas -->
+  <div class="ambient-gradient-mesh" aria-hidden="true"></div>
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Studio Header -->
+  <header class="studio-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link" id="brandLink">
+        <img src="assets/logo.jpg" alt="Ambient Studio Logo" class="brand-logo-img">
+        <span class="brand-title">AMBIENT STUDIO</span>
+        <span class="brand-tag">AUDIO LAB</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-anchor">Home</a>
+        <a href="games.html" class="nav-anchor">Our Games 🎮</a>
+        <a href="soundboard.html" class="nav-anchor nav-anchor-active">Bleep Bloop Lab 🔊</a>
+        <a href="index.html#secret-toy" class="nav-anchor">The Button</a>
+        <a href="index.html#manifesto" class="nav-anchor">Why So Silly?</a>
+        <a href="#inquiry" class="nav-anchor nav-anchor-primary" onclick="event.preventDefault(); window.scrollToInquiry();">Say Hewwo 👾</a>
+      </nav>
+
+      <!-- Silly Music & Bleep Bloop Toggle -->
+      <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
+        <span class="sound-emoji" id="soundEmoji">🕹️</span>
+        <span class="sound-label" id="soundStateLabel">Arcade Tune: Off</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Lab Hero Section -->
+    <section class="hero-section lab-hero-section">
+      <div class="container">
+        
+        <div class="hero-headline-wrap">
+          <div class="silly-badge-row">
+            <span class="silly-badge">👾 WEB AUDIO SYNTH</span>
+            <span class="silly-badge silly-badge-orange">★ 100% LIVE SYNTHESIZED</span>
+            <span class="silly-badge">FM QUACK ACOUSTICS 🦆</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">THE BLEEP-BLOOP</span>
+            <span class="title-line title-gradient">ACOUSTIC LABORATORY</span>
+          </h1>
+
+          <p class="hero-subtext">
+            Welcome to our experimental noise chamber! Every sound on this page is generated from pure code using the Web Audio API. Zero recorded MP3 files, zero loading lag — just pure oscillating voltage waveforms sculpted to tickle your funny bone.
+          </p>
+
+          <div class="lab-stats-strip">
+            <div class="lab-stat-box">
+              <span class="lab-stat-num">7</span>
+              <span class="lab-stat-lbl">Handmade Synths</span>
+            </div>
+            <div class="lab-stat-box">
+              <span class="lab-stat-num">0 KB</span>
+              <span class="lab-stat-lbl">Audio Downloads</span>
+            </div>
+            <div class="lab-stat-box">
+              <span class="lab-stat-num">60 FPS</span>
+              <span class="lab-stat-lbl">Oscilloscope Sweep</span>
+            </div>
+            <div class="lab-stat-box">
+              <span class="lab-stat-num">&lt; 1 ms</span>
+              <span class="lab-stat-lbl">Trigger Latency</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- The Soundboard & Scope Chamber -->
+    <section class="chamber-section" style="padding-top: 2rem;">
+      <div class="container">
+        
+        <div class="chamber-grid">
+          <!-- Silly Sound Preset Cards -->
+          <div class="chamber-presets">
+            
+            <!-- Preset 01: Duck Quack -->
+            <button class="preset-card active silly-card-wiggle" id="soundBtnQuack">
+              <div class="preset-top">
+                <span class="preset-hz">🦆 QUACK ENGINE</span>
+                <span class="preset-indicator">CLICK ME!</span>
+              </div>
+              <h2 class="preset-name">The Mega Duck Honk</h2>
+              <p class="preset-desc">Frequency-modulated sawtooth carrier with a 36Hz sine wave formant filter. Delivers the authentic sound of an angry duck on rocket skates.</p>
+              <div class="preset-specs">
+                <span>Carrier: 320Hz → 190Hz</span>
+                <span>Modulator: 36Hz</span>
+                <span>Type: FM Quack</span>
+              </div>
+            </button>
+
+            <!-- Preset 02: Boing -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnBoing">
+              <div class="preset-top">
+                <span class="preset-hz">🦘 BOING JUMP</span>
+                <span class="preset-indicator">SPRINGY!</span>
+              </div>
+              <h2 class="preset-name">The Trampoline Sprog</h2>
+              <p class="preset-desc">Classic arcade upward logarithmic pitch ramp with quick exponential gain decay. Perfect for slices of sourdough leaping over kitchen forks.</p>
+              <div class="preset-specs">
+                <span>Sweep: 110Hz → 680Hz</span>
+                <span>Decay: 0.38s</span>
+                <span>Wave: Pure Sine</span>
+              </div>
+            </button>
+
+            <!-- Preset 03: Space Laser -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnLaser">
+              <div class="preset-top">
+                <span class="preset-hz">👾 PEW PEW ZAP</span>
+                <span class="preset-indicator">ARCADE!</span>
+              </div>
+              <h2 class="preset-name">Space Cheese Blaster</h2>
+              <p class="preset-desc">Hyper-fast downward exponential pitch dive with square wave overtone bite. Certified capybara space defense technology.</p>
+              <div class="preset-specs">
+                <span>Sweep: 1100Hz → 90Hz</span>
+                <span>Decay: 0.24s</span>
+                <span>Wave: Sharp Square</span>
+              </div>
+            </button>
+
+            <!-- Preset 04: Quantum Mower Engine -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnEngine">
+              <div class="preset-top">
+                <span class="preset-hz">⚙️ QUANTUM MOWER</span>
+                <span class="preset-indicator">HIGH RPM!</span>
+              </div>
+              <h2 class="preset-name">4.5 HP Void Pull-Cord Rev</h2>
+              <p class="preset-desc">Gritty sawtooth vibration simulating an eager suburban dad trying to start a pull-cord lawnmower on the edge of a black hole.</p>
+              <div class="preset-specs">
+                <span>RPM: 65Hz → 145Hz</span>
+                <span>Decay: 0.38s</span>
+                <span>Wave: Sawtooth</span>
+              </div>
+            </button>
+
+            <!-- Preset 05: Golden Steam Chime -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnChime">
+              <div class="preset-top">
+                <span class="preset-hz">🔔 GOLDEN CHIMES</span>
+                <span class="preset-indicator">HARMONIC!</span>
+              </div>
+              <h2 class="preset-name">The Steam Wishlist Arpeggio</h2>
+              <p class="preset-desc">A sparkling 4-note ascending major arpeggio in C-major (C5, E5, G5, C6) triggering joyous dopamine whenever a game gets wishlisted.</p>
+              <div class="preset-specs">
+                <span>Scale: C5 → C6 (1046Hz)</span>
+                <span>Chords: Sine 4-Part</span>
+                <span>Mood: Pure Delight</span>
+              </div>
+            </button>
+
+            <!-- Preset 06: Fail Womp-Womp -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnWomp">
+              <div class="preset-top">
+                <span class="preset-hz">🎺 WOMP-WOMP</span>
+                <span class="preset-indicator">FAIL HORN!</span>
+              </div>
+              <h2 class="preset-name">Sad Trombone of Defeat</h2>
+              <p class="preset-desc">Dual descending pitch triangle waves tuned to a minor second drop. Instantly turns an arcade game-over screen into joyful laughter.</p>
+              <div class="preset-specs">
+                <span>Notes: 230Hz → 170Hz</span>
+                <span>Tone: Minor Dissonant</span>
+                <span>Wave: Triangle</span>
+              </div>
+            </button>
+
+            <!-- Preset 07: Victory Fanfare -->
+            <button class="preset-card silly-card-wiggle" id="soundBtnFanfare">
+              <div class="preset-top">
+                <span class="preset-hz">🏆 VICTORY MARCH</span>
+                <span class="preset-indicator">CONFETTI!</span>
+              </div>
+              <h2 class="preset-name">Champion Confetti Fanfare</h2>
+              <p class="preset-desc">Triumphant 4-note brassy brass arpeggio accompanied by physics-driven confetti cannon burst across the entire screen.</p>
+              <div class="preset-specs">
+                <span>Scale: A4 → A5 (880Hz)</span>
+                <span>FX: Full Screen Confetti</span>
+                <span>Wave: Rich Triangle</span>
+              </div>
+            </button>
+
+          </div>
+
+          <!-- Scope Display & Interactive Live Synth Playground -->
+          <div class="chamber-scope-display silly-scope-border">
+            <div class="scope-header">
+              <div class="scope-title-wrap">
+                <span class="scope-pulse"></span>
+                <span class="scope-label">REAL-TIME GOOFY WAVE VISUALIZER</span>
+              </div>
+              <span class="scope-telemetry-freq" id="liveFreqNumber">BOOP READY!</span>
+            </div>
+
+            <div class="scope-canvas-wrap">
+              <canvas id="scopeCanvas" width="600" height="260"></canvas>
+            </div>
+
+            <!-- Custom Live Synth Controls -->
+            <div class="lab-scope-controls">
+              <span class="lab-control-title">🎛️ CUSTOM LIVE SYNTHESIZER PLAYGROUND</span>
+              
+              <div class="lab-control-row">
+                <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-pixel);">WAVEFORM TYPE:</span>
+                  <div class="waveform-btn-group">
+                    <button class="waveform-btn active" data-wave="sawtooth">Sawtooth</button>
+                    <button class="waveform-btn" data-wave="sine">Sine</button>
+                    <button class="waveform-btn" data-wave="square">Square</button>
+                    <button class="waveform-btn" data-wave="triangle">Triangle</button>
+                  </div>
+                </div>
+
+                <div class="frequency-slider-wrap">
+                  <div style="display: flex; flex-direction: column; width: 100%; gap: 0.35rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-pixel);">FREQUENCY PITCH:</span>
+                      <span class="slider-val-badge" id="freqSliderDisplay">440 Hz</span>
+                    </div>
+                    <input type="range" id="freqSlider" min="50" max="1800" value="440" step="5" aria-label="Frequency slider in Hertz">
+                  </div>
+                </div>
+
+                <button class="btn-primary btn-bouncy" id="playCustomToneBtn" style="padding: 0.65rem 1.2rem; font-size: 0.88rem;">
+                  <span>Play Custom Tone 🔊</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Telemetry Stats Footer -->
+            <div class="scope-footer-stats">
+              <div class="stat-cell">
+                <span class="cell-k">LAST SOUND PLAYED</span>
+                <span class="cell-v" id="lastSoundPlayedText">🦆 Duck Honk 340Hz</span>
+              </div>
+              <div class="stat-cell">
+                <span class="cell-k">SILLY METER</span>
+                <span class="cell-v" id="sillyMeterText">OFF THE CHARTS 🔥</span>
+              </div>
+              <div class="stat-cell">
+                <span class="cell-k">SYNTH ENGINE</span>
+                <span class="cell-v" id="synthStatusText">Web Audio Synth</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Acoustic Science Explainer -->
+    <section class="lab-explainer-section">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[01]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">BEHIND THE CURTAIN</span>
+            <h2 class="section-title">WHY WE SYNTHESIZE EVERYTHING</h2>
+          </div>
+          <p class="section-description">
+            Most gaming studios record pre-baked MP3 files. At Ambient Studio, we believe code-based procedural synthesis is faster, infinitely funnier, and 1000x lighter on your bandwidth.
+          </p>
+        </div>
+
+        <div class="lab-explainer-grid">
+          <div class="lab-explainer-card">
+            <div class="lab-card-icon">🦆</div>
+            <h3 class="lab-card-title">Mathematical Duck Formants</h3>
+            <p class="lab-card-desc">
+              Human and animal vocal tracts produce distinct formant bands. By routing an aggressive 320Hz sawtooth oscillator into an FM modulator running at 36Hz and filtering at 950Hz Q4.2, we recreate duck quacks mathematically.
+            </p>
+          </div>
+
+          <div class="lab-explainer-card">
+            <div class="lab-card-icon">⚡</div>
+            <h3 class="lab-card-title">Zero Buffer Delay (0ms Latency)</h3>
+            <p class="lab-card-desc">
+              Pre-rendered audio files require network requests, decoding buffers, and memory caching. Web Audio API synthesizers fire instantaneously on the hardware audio thread with zero latency and zero stutter.
+            </p>
+          </div>
+
+          <div class="lab-explainer-card">
+            <div class="lab-card-icon">🪶</div>
+            <h3 class="lab-card-title">Sub-Kilobyte Footprint</h3>
+            <p class="lab-card-desc">
+              A standard 10-second MP3 clip weighs 200KB+. Our entire interactive soundboard containing 7 distinct retro instruments and background chiptune drones weighs less than 4KB of pure JavaScript.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Transmit Inquiry / Say Hewwo -->
+    <section class="contact-section" id="inquiry">
+      <div class="container">
+        
+        <div class="section-header-editorial">
+          <div class="editorial-num">[02]</div>
+          <div class="editorial-heading">
+            <span class="sub-label">GOT A SOUND REQUEST?</span>
+            <h2 class="section-title">SAY HEWWO TO THE SOUND LAB</h2>
+          </div>
+          <p class="section-description">
+            Want us to synthesize a squeaky rubber chicken, a rocket toaster, or custom retro chiptunes for your indie game? Send us a silly transmission!
+          </p>
+        </div>
+
+        <div class="inquiry-grid">
+          <form class="inquiry-form-card silly-frame-border" id="inquiryForm" onsubmit="window.handleInquirySubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName" class="form-label">YOUR CALLSIGN / NAME *</label>
+                <input type="text" id="contactName" name="name" class="form-input" placeholder="e.g. Captain Quackers" required>
+              </div>
+              <div class="form-group">
+                <label for="contactEmail" class="form-label">CARRIER PIGEON EMAIL *</label>
+                <input type="email" id="contactEmail" name="email" class="form-input" placeholder="duck@pond.space" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contactTopic" class="form-label">WHAT'S ON YOUR MIND? *</label>
+              <select id="contactTopic" name="topic" class="form-select" required>
+                <option value="sound-idea">Suggest a silly synthesized sound effect</option>
+                <option value="game-collab">Collaborate on an indie game audio engine</option>
+                <option value="fan-letter">Send pizza or friendly high-fives</option>
+                <option value="other">Random absurdity</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage" class="form-label">YOUR TRANSMISSION *</label>
+              <textarea id="contactMessage" name="message" class="form-textarea" rows="4" placeholder="Tell us what frequencies to modulate..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-bouncy form-submit-btn" id="submitInquiryBtn">
+              <span>Transmit Message 🚀</span>
+            </button>
+          </form>
+
+          <div class="inquiry-info-panel">
+            <div class="info-block">
+              <span class="info-k">DIRECT FREQUENCY</span>
+              <span class="info-v"><a href="mailto:hewwo@ambientstudio.fun">hewwo@ambientstudio.fun</a></span>
+            </div>
+            <div class="info-block">
+              <span class="info-k">CARRIER FREQUENCY</span>
+              <span class="info-v">440Hz Concert Pitch · Web Audio API</span>
+            </div>
+            <div class="info-block">
+              <span class="info-k">LAB RESPONSE TIME</span>
+              <span class="info-v">Between Pizza Bites (Usually 24 hrs)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="studio-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <img src="assets/logo.jpg" alt="Ambient Studio" class="footer-logo">
+          <span>AMBIENT STUDIO</span>
+        </div>
+        <p class="footer-tagline">
+          Building tactile, chaotic, physics-driven indie games and pure Web Audio toys with zero AI slop.
+        </p>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-col-title">NAVIGATION</span>
+        <a href="index.html">Home</a>
+        <a href="games.html">Our Silly Games 🎮</a>
+        <a href="soundboard.html">Bleep-Bloop Lab 🔊</a>
+        <a href="index.html#secret-toy">The Emergency Button</a>
+        <a href="index.html#manifesto">Why So Silly?</a>
+      </div>
+
+      <div class="footer-credits-col">
+        <span class="footer-col-title">STATUS &amp; CERTIFICATION</span>
+        <div class="duck-approved-seal">
+          <span class="seal-icon">🦆</span>
+          <span class="seal-text">100% CERTIFIED SILLY &amp; DUCK APPROVED</span>
+        </div>
+        <p class="footer-copy">© 2026 Ambient Studio. All duck rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Modals Suite (Arcade, Wishlist, Demo, Playtest, Toast) -->
+  <div class="ambient-toast" id="ambientToast" aria-live="polite"></div>
+
+  <!-- Main JavaScript Engine -->
+  <script src="app.js"></script>
+</body>
+</html>

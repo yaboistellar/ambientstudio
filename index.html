@@ -29,14 +29,14 @@
       </a>
 
 
-      <nav class="nav-links">
-        <a href="index.html" class="nav-anchor nav-anchor-active">Home</a>
-        <a href="games.html" class="nav-anchor">Our Games 🎮</a>
-        <a href="#soundboard" class="nav-anchor">Bleep Bloop Lab</a>
-        <a href="#secret-toy" class="nav-anchor">The Button</a>
-        <a href="#manifesto" class="nav-anchor">Why So Silly?</a>
-        <a href="#inquiry" class="nav-anchor nav-anchor-primary">Say Hewwo 👾</a>
-      </nav>
+        <nav class="nav-links">
+          <a href="index.html" class="nav-anchor nav-anchor-active">Home</a>
+          <a href="games.html" class="nav-anchor">Our Games 🎮</a>
+          <a href="soundboard.html" class="nav-anchor">Bleep Bloop Lab 🔊</a>
+          <a href="#secret-toy" class="nav-anchor">The Button</a>
+          <a href="#manifesto" class="nav-anchor">Why So Silly?</a>
+          <a href="#inquiry" class="nav-anchor nav-anchor-primary">Say Hewwo 👾</a>
+        </nav>
 
       <!-- Silly Music & Bleep Bloop Toggle -->
       <button class="sound-toggle-btn silly-wiggle-hover" id="soundToggleBtn" aria-label="Toggle 8-bit chiptune audio drone" title="Toggle 8-Bit Bleep Bloops">
@@ -268,112 +268,19 @@
       </div>
     </section>
 
-    <!-- The Silly Soundboard & Bleep-Bloop Lab -->
-    <section class="chamber-section" id="soundboard">
+    <!-- Dedicated Bleep-Bloop Lab Callout Banner -->
+    <section class="lab-callout-section">
       <div class="container">
-        
-        <div class="section-header-editorial">
-          <div class="editorial-num">[02]</div>
-          <div class="editorial-heading">
-            <span class="sub-label">NOISEMAKER EXPERIMENTS</span>
-            <h2 class="section-title">THE BLEEP-BLOOP LAB</h2>
+        <div class="view-all-games-banner lab-banner">
+          <div class="banner-text">
+            <span class="sub-label">NEW DEDICATED NOISEMAKER LAB</span>
+            <h3>THE BLEEP-BLOOP LAB HAS ITS OWN ROOM! 🔊</h3>
+            <p>Our bespoke Web Audio API synthesizer, FM modulation horns, and real-time bouncing oscilloscope now live on their own dedicated laboratory page.</p>
           </div>
-          <p class="section-description">
-            Smash these buttons to fire live synthesized 8-bit sound effects. Watch the funny waveform bounce with every goofy sound!
-          </p>
+          <a href="soundboard.html" class="btn-primary btn-bouncy btn-view-all">
+            <span>Enter The Soundboard Lab →</span>
+          </a>
         </div>
-
-        <div class="chamber-grid">
-          <!-- Silly Sound Buttons -->
-          <div class="chamber-presets">
-            <button class="preset-card active silly-card-wiggle" id="soundBtnQuack">
-              <div class="preset-top">
-                <span class="preset-hz">🦆 QUACK ENGINE</span>
-                <span class="preset-indicator">CLICK ME!</span>
-              </div>
-              <h3 class="preset-name">The Mega Duck Honk</h3>
-              <p class="preset-desc">Fires an FM frequency modulated wobble duck quack through our custom black-and-orange acoustic horn.</p>
-              <div class="preset-specs">
-                <span>Tone: 340Hz</span>
-                <span>Goofiness: 100%</span>
-                <span>Type: Honk</span>
-              </div>
-            </button>
-
-            <button class="preset-card silly-card-wiggle" id="soundBtnBoing">
-              <div class="preset-top">
-                <span class="preset-hz">🦘 BOING JUMP</span>
-                <span class="preset-indicator">SPRINGY!</span>
-              </div>
-              <h3 class="preset-name">The Trampoline Sprog</h3>
-              <p class="preset-desc">Classic retro platformer ascending pitch slide. Perfect for fleeing angry kitchen appliances.</p>
-              <div class="preset-specs">
-                <span>Sweep: 120Hz → 850Hz</span>
-                <span>Decay: 0.35s</span>
-                <span>Bounce: Max</span>
-              </div>
-            </button>
-
-            <button class="preset-card silly-card-wiggle" id="soundBtnLaser">
-              <div class="preset-top">
-                <span class="preset-hz">👾 PEW PEW ZAP</span>
-                <span class="preset-indicator">ARCADE!</span>
-              </div>
-              <h3 class="preset-name">Space Cheese Blaster</h3>
-              <p class="preset-desc">Downward pitch laser blast used by astronaut capybaras in deep space negotiations.</p>
-              <div class="preset-specs">
-                <span>Sweep: 1200Hz → 180Hz</span>
-                <span>Wave: Square</span>
-                <span>Retro: 1988</span>
-              </div>
-            </button>
-
-            <button class="preset-card silly-card-wiggle" id="soundBtnWomp">
-              <div class="preset-top">
-                <span class="preset-hz">🎺 WOMP-WOMP</span>
-                <span class="preset-indicator">FAIL HORN!</span>
-              </div>
-              <h3 class="preset-name">Sad Trombone of Defeat</h3>
-              <p class="preset-desc">When you accidentally rollerblade off the edge or get toasted. Instantly brings joyful commiseration.</p>
-              <div class="preset-specs">
-                <span>Dissonance: High</span>
-                <span>Sympathy: Low</span>
-                <span>Giggle: Guaranteed</span>
-              </div>
-            </button>
-          </div>
-
-          <!-- Scope Display with Bouncy Cartoon Waves -->
-          <div class="chamber-scope-display silly-scope-border">
-            <div class="scope-header">
-              <div class="scope-title-wrap">
-                <span class="scope-pulse"></span>
-                <span class="scope-label">REAL-TIME GOOFY WAVE VISUALIZER</span>
-              </div>
-              <span class="scope-telemetry-freq" id="liveFreqNumber">BOOP READY!</span>
-            </div>
-
-            <div class="scope-canvas-wrap">
-              <canvas id="scopeCanvas" width="600" height="260"></canvas>
-            </div>
-
-            <div class="scope-footer-stats">
-              <div class="stat-cell">
-                <span class="cell-k">LAST SOUND PLAYED</span>
-                <span class="cell-v" id="lastSoundPlayedText">🦆 Duck Honk 340Hz</span>
-              </div>
-              <div class="stat-cell">
-                <span class="cell-k">SILLY METER</span>
-                <span class="cell-v" id="sillyMeterText">OFF THE CHARTS 🔥</span>
-              </div>
-              <div class="stat-cell">
-                <span class="cell-k">SYNTH ENGINE</span>
-                <span class="cell-v" id="synthStatusText">Web Audio Synth</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -531,7 +438,7 @@
         <div class="footer-links-col">
           <span class="f-col-header">ARCADE SECTIONS</span>
           <a href="#games" class="f-link">Game Archive</a>
-          <a href="#soundboard" class="f-link">Bleep Bloop Lab</a>
+          <a href="soundboard.html" class="f-link">Bleep Bloop Lab 🔊</a>
           <a href="#secret-toy" class="f-link">Emergency Silly Button</a>
         </div>
 

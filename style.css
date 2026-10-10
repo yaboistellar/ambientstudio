@@ -1106,6 +1106,174 @@ main {
 }
 
 /* ==========================================================================
+   Dedicated Bleep-Bloop Audio Lab Page Styles
+   ========================================================================== */
+.lab-callout-section {
+  padding-top: calc(var(--section-spacing) * 0.4);
+  padding-bottom: calc(var(--section-spacing) * 0.4);
+}
+
+.lab-banner {
+  border-left: 5px solid var(--orange-bright);
+}
+
+.lab-hero-section {
+  padding-top: calc(var(--section-spacing) * 0.8);
+  padding-bottom: calc(var(--section-spacing) * 0.4);
+}
+
+.lab-stats-strip {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.lab-stat-box {
+  border-left: 2px solid var(--orange-bright);
+  padding-left: 1rem;
+}
+
+.lab-stat-num {
+  font-family: var(--font-pixel);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--orange-yellow);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-stat-lbl {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.lab-scope-controls {
+  padding: 1.6rem 1.8rem;
+  border-top: 1px solid var(--border-hairline);
+  background: var(--bg-surface-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.lab-control-title {
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--orange-bright);
+  text-transform: uppercase;
+}
+
+.lab-control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.waveform-btn-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.waveform-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 0.5rem 0.95rem;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.waveform-btn:hover,
+.waveform-btn.active {
+  border-color: var(--orange-bright);
+  color: var(--orange-yellow);
+  background: rgba(255, 94, 0, 0.14);
+}
+
+.frequency-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 250px;
+}
+
+.frequency-slider-wrap input[type="range"] {
+  flex: 1;
+  accent-color: var(--orange-bright);
+  cursor: pointer;
+  height: 6px;
+}
+
+.slider-val-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  color: var(--orange-yellow);
+  min-width: 75px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-explainer-section {
+  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.lab-explainer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.lab-explainer-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.lab-explainer-card:hover {
+  border-color: var(--border-orange);
+}
+
+.lab-card-icon {
+  font-size: 2rem;
+}
+
+.lab-card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.lab-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .lab-explainer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ==========================================================================
    Interactive Secret Clicker Toy
    ========================================================================== */
 .secret-toy-section {

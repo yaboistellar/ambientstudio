@@ -8,8 +8,9 @@
 
 ## 🎮 Explore The Studio
 
-- **[index.html](index.html)**: The official landing page with our philosophy, soundboard synthesizer, emergency button, and featured game previews.
-- **[games.html](games.html)**: The complete games catalogue featuring live search, genre filters (`Arcade`, `Food`, `Cozy`, `Physics`), Steam wishlisting, instant playable browser arcade, and standalone offline demo downloads.
+- **[index.html](index.html)**: The official landing page with our studio philosophy, emergency dopamine button, and featured game previews.
+- **[games.html](games.html)**: The complete games catalogue featuring live search, genre filters (`Arcade`, `Food`, `Cozy`, `Physics`), and audio engines.
+- **[soundboard.html](soundboard.html)**: The dedicated Bleep-Bloop Acoustic Lab featuring 7 real-time Web Audio API synthesizers, custom waveform sculpting, and live 60 FPS oscilloscope.
 
 ---
 

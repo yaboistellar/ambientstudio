@@ -363,6 +363,66 @@
       highlightPreset('soundBtnWomp');
       window.triggerSillyWomp();
     });
+    document.getElementById('soundBtnEngine')?.addEventListener('click', () => {
+      highlightPreset('soundBtnEngine');
+      window.triggerSillyEngine();
+    });
+    document.getElementById('soundBtnChime')?.addEventListener('click', () => {
+      highlightPreset('soundBtnChime');
+      window.triggerChime();
+    });
+    document.getElementById('soundBtnFanfare')?.addEventListener('click', () => {
+      highlightPreset('soundBtnFanfare');
+      window.triggerSillyFanfare();
+      window.fireConfetti();
+    });
+
+    // Custom Live Synthesizer Playground Controls
+    let customWaveType = 'sawtooth';
+    let customFreqVal = 440;
+
+    document.querySelectorAll('.waveform-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.waveform-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        customWaveType = btn.dataset.wave || 'sawtooth';
+      });
+    });
+
+    const freqInput = document.getElementById('freqSlider');
+    const freqBadge = document.getElementById('freqSliderDisplay');
+    if (freqInput && freqBadge) {
+      freqInput.addEventListener('input', (e) => {
+        customFreqVal = parseInt(e.target.value, 10);
+        freqBadge.textContent = `${customFreqVal} Hz`;
+      });
+    }
+
+    const playCustomBtn = document.getElementById('playCustomToneBtn');
+    if (playCustomBtn) {
+      playCustomBtn.addEventListener('click', () => {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = customWaveType;
+        osc.frequency.setValueAtTime(customFreqVal, now);
+
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.24, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.4);
+
+        notifyScopePulse(customFreqVal, `🎛️ Custom ${customWaveType.toUpperCase()} ${customFreqVal}Hz`, 2.2);
+        window.showComicSoundBubble(playCustomBtn, `*BZZT!* ${customFreqVal}Hz`);
+      });
+    }
 
     function highlightPreset(id) {
       document.querySelectorAll('.preset-card').forEach((el) => el.classList.remove('active'));
