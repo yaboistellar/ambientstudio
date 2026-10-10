@@ -372,6 +372,27 @@
             <button type="submit" class="btn-primary btn-bouncy form-submit-btn" id="submitInquiryBtn">
               <span>Transmit Message 🚀</span>
             </button>
+
+            <!-- Confirmation message -->
+            <div class="form-success-banner hidden" id="formSuccessBanner" role="status" aria-live="polite">
+              <span class="success-icon">🎉</span>
+              <div>
+                <strong>Acoustic transmission launched!</strong>
+                <p>The sound synthesizers have logged your frequency request. Expect a goofy response in your inbox soon!</p>
+              </div>
+            </div>
+
+            <!-- Anomaly Fallback Banner -->
+            <div class="form-error-banner hidden" id="formErrorBanner" role="alert" aria-live="assertive">
+              <span class="error-icon">⚠️</span>
+              <div>
+                <strong>Transmission anomaly detected!</strong>
+                <p>Could not reach the pigeon dispatch server. Click below to launch directly via your email app:</p>
+                <a href="#" class="btn-secondary btn-bouncy" id="mailFallbackBtn" style="display: inline-block; margin-top: 0.5rem; text-decoration: none;">
+                  <span>Open in Email App ✉️</span>
+                </a>
+              </div>
+            </div>
           </form>
 
           <div class="inquiry-info-panel">

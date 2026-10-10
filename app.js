@@ -773,30 +773,135 @@
     animate();
   }
 
-  // --- 6. Form Submission Handler ---
-  window.handleInquirySubmit = function () {
+  // --- 6. Form Submission Handler (Live FormSubmit.co Integration) ---
+  const RECIPIENT_EMAIL = 'tanshiralmusnad80@gmail.com';
+
+  window.handleInquirySubmit = async function (e) {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+
     const form = document.getElementById('inquiryForm');
     const submitBtn = document.getElementById('submitInquiryBtn');
-    const banner = document.getElementById('formSuccessBanner');
+    const successBanner = document.getElementById('formSuccessBanner');
+    const errorBanner = document.getElementById('formErrorBanner');
 
-    if (!form || !submitBtn || !banner) return;
+    if (!form || !submitBtn) return;
+
+    // Validate inputs using HTML5 validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Hide any previously displayed banners
+    if (successBanner) successBanner.classList.add('hidden');
+    if (errorBanner) errorBanner.classList.add('hidden');
+
+    // Extract values across form schemas
+    const nameInput = document.getElementById('clientName') || document.getElementById('contactName');
+    const emailInput = document.getElementById('clientEmail') || document.getElementById('contactEmail');
+    const topicSelect = document.getElementById('projectType') || document.getElementById('contactTopic');
+    const locationInput = document.getElementById('projectLocation');
+    const messageInput = document.getElementById('projectMessage') || document.getElementById('contactMessage');
+
+    const senderName = nameInput ? nameInput.value.trim() : 'Anonymous Gamer';
+    const senderEmail = emailInput ? emailInput.value.trim() : '';
+    const topic = topicSelect ? (topicSelect.options[topicSelect.selectedIndex]?.text || topicSelect.value) : 'General Silly Note';
+    const planet = locationInput ? locationInput.value.trim() : 'Earth';
+    const messageText = messageInput ? messageInput.value.trim() : '';
+
+    const originalBtnSpan = submitBtn.querySelector('span');
+    const originalText = originalBtnSpan ? originalBtnSpan.textContent : 'Launch Message Into Space 🚀';
 
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.7';
-    submitBtn.querySelector('span').textContent = 'Launching Pigeon... 🚀';
+    if (originalBtnSpan) {
+      originalBtnSpan.textContent = 'Launching Pigeon Into Space... 🚀';
+    }
 
     window.triggerSillyLaser();
 
-    setTimeout(() => {
-      form.reset();
+    const payload = {
+      name: senderName,
+      email: senderEmail,
+      topic: topic,
+      planet: planet,
+      message: messageText,
+      _subject: `[Ambient Studio] Transmission from ${senderName}`,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    // Backup to localStorage ledger
+    try {
+      const stored = JSON.parse(localStorage.getItem('ambient_messages') || '[]');
+      stored.unshift({
+        ...payload,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('ambient_messages', JSON.stringify(stored.slice(0, 30)));
+    } catch (err) {
+      console.warn('LocalStorage backup note:', err);
+    }
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok || data.success === 'true' || data.success === true) {
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        if (originalBtnSpan) {
+          originalBtnSpan.textContent = originalText;
+        }
+
+        if (successBanner) {
+          successBanner.classList.remove('hidden');
+          successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        window.fireConfetti();
+        window.triggerSillyFanfare();
+        window.showToast(`Pigeon landed at ${RECIPIENT_EMAIL}! 🚀`, '🎉');
+        window.announceA11y(`Message successfully launched to ${RECIPIENT_EMAIL}.`);
+      } else {
+        throw new Error(data.message || 'FormSubmit request returned non-OK status');
+      }
+    } catch (err) {
+      console.warn('FormSubmit network notice, activating client fallback:', err);
       submitBtn.disabled = false;
       submitBtn.style.opacity = '1';
-      submitBtn.querySelector('span').textContent = 'Launch Message Into Space 🚀';
-      banner.classList.remove('hidden');
-      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      window.fireConfetti();
-      window.showToast('Game pitch successfully launched to devs! 🚀', '🎉');
-    }, 700);
+      if (originalBtnSpan) {
+        originalBtnSpan.textContent = originalText;
+      }
+
+      if (errorBanner) {
+        errorBanner.classList.remove('hidden');
+        const fallbackBtn = document.getElementById('mailFallbackBtn');
+        if (fallbackBtn) {
+          const mailSubject = encodeURIComponent(`[Ambient Studio] ${topic} from ${senderName}`);
+          const mailBody = encodeURIComponent(
+            `Gamer Tag: ${senderName}\nEmail: ${senderEmail}\nHome Planet: ${planet}\nTopic: ${topic}\n\nMessage:\n${messageText}`
+          );
+          fallbackBtn.href = `mailto:${RECIPIENT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+        }
+        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else if (successBanner) {
+        successBanner.classList.remove('hidden');
+        window.fireConfetti();
+      }
+
+      window.announceA11y('Transmission anomaly. Direct email client fallback prepared.');
+    }
   };
 
   // --- 7. Back To Top Button ---

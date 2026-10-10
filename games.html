@@ -292,11 +292,23 @@
               <span class="inquiry-notice">We review every community pitch during our Friday pizza game jams!</span>
             </div>
 
-            <div class="form-success-banner hidden" id="formSuccessBanner">
+            <div class="form-success-banner hidden" id="formSuccessBanner" role="status" aria-live="polite">
               <span class="success-icon">🎉</span>
               <div>
                 <strong>Game idea received!</strong>
                 <p>The dev squad has logged your proposal in our high-priority goofy idea vault.</p>
+              </div>
+            </div>
+
+            <!-- Anomaly Fallback Banner -->
+            <div class="form-error-banner hidden" id="formErrorBanner" role="alert" aria-live="assertive">
+              <span class="error-icon">⚠️</span>
+              <div>
+                <strong>Transmission anomaly detected!</strong>
+                <p>Could not reach the pigeon dispatch server. Click below to launch directly via your email app:</p>
+                <a href="#" class="btn-secondary btn-bouncy" id="mailFallbackBtn" style="display: inline-block; margin-top: 0.5rem; text-decoration: none;">
+                  <span>Open in Email App ✉️</span>
+                </a>
               </div>
             </div>
           </form>
