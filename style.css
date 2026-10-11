@@ -56,6 +56,7 @@ html {
   background-color: var(--bg-pitch);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -1752,9 +1753,18 @@ main {
 /* ==========================================================================
    Inquiry / Fan Mail Section
    ========================================================================== */
-.inquiry-section {
+.inquiry-section,
+.contact-section {
   padding-top: var(--section-spacing);
   padding-bottom: var(--section-spacing);
+  position: relative;
+  z-index: 2;
+}
+
+.silly-frame-border {
+  border: 2px solid var(--border-orange);
+  box-shadow: 0 0 25px rgba(255, 94, 0, 0.08), inset 0 0 20px rgba(255, 94, 0, 0.03);
+  position: relative;
 }
 
 .inquiry-card {
@@ -1762,6 +1772,24 @@ main {
   background: var(--bg-surface);
   border-radius: 16px;
   padding: clamp(2.5rem, 6vw, 5rem);
+}
+
+.inquiry-grid {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 2.25rem;
+  align-items: start;
+}
+
+.inquiry-form-card {
+  border: 2px solid var(--border-orange);
+  background: var(--bg-surface);
+  border-radius: 16px;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 0 25px rgba(255, 94, 0, 0.08), inset 0 0 20px rgba(255, 94, 0, 0.03);
 }
 
 .inquiry-header {
@@ -1791,48 +1819,86 @@ main {
   margin-bottom: 3.5rem;
 }
 
+.form-row,
 .form-row-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.75rem;
+  gap: 1.5rem;
 }
 
+.form-group,
 .form-field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
+.form-label,
 .form-field label {
   font-family: var(--font-pixel);
   font-size: 0.68rem;
   color: var(--orange-yellow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
 }
 
+.form-input,
+.form-select,
+.form-textarea,
 .form-field input,
 .form-field select,
 .form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
   background: var(--bg-surface-elevated);
   border: 2px solid var(--border-subtle);
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 1rem;
-  padding: 1rem 1.25rem;
+  padding: 0.95rem 1.25rem;
   border-radius: 10px;
   outline: none;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  line-height: 1.5;
 }
 
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
   border-color: var(--orange-bright);
   background: rgba(255, 94, 0, 0.08);
+  box-shadow: 0 0 16px rgba(255, 94, 0, 0.25);
 }
 
+.form-select,
+.form-field select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFAE19' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  padding-right: 2.75rem;
+}
+
+.form-select option,
 .form-field select option {
   background: var(--bg-surface-elevated);
   color: var(--text-primary);
+  padding: 0.6rem;
+}
+
+.form-textarea,
+.form-field textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .form-actions {
@@ -1843,8 +1909,86 @@ main {
   margin-top: 0.5rem;
 }
 
+.form-submit-btn,
 .btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 1rem 2.25rem;
   border: 3px solid #FFAE19;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, #FF6A00 0%, #EA580C 100%);
+  color: #000000;
+  box-shadow: 0 4px 18px rgba(255, 94, 0, 0.4);
+  text-decoration: none;
+  transition: transform 0.18s var(--spring-bounce), box-shadow 0.18s ease;
+}
+
+.form-submit-btn:hover,
+.btn-submit:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(255, 94, 0, 0.55);
+}
+
+.form-submit-btn:active,
+.btn-submit:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.inquiry-info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-orange);
+  border-radius: 16px;
+  padding: 2.25rem;
+  box-shadow: 0 0 25px rgba(255, 94, 0, 0.08), inset 0 0 20px rgba(255, 94, 0, 0.03);
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.info-block:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-k {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--orange-yellow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.info-v {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.info-v a {
+  color: var(--orange-bright);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-v a:hover {
+  color: #FFAE19;
+  text-decoration: underline;
 }
 
 .inquiry-notice {
@@ -1980,13 +2124,96 @@ main {
   gap: 0.85rem;
 }
 
-.footer-logo-img {
+.footer-logo-img,
+.footer-logo {
   width: 36px;
   height: 36px;
   border-radius: 8px;
   object-fit: cover;
   border: 2px solid var(--orange-bright);
   box-shadow: 0 0 10px rgba(255, 94, 0, 0.35);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr;
+  gap: 3.5rem;
+  padding-bottom: 2rem;
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.footer-nav-col,
+.footer-credits-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-col-title {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--orange-yellow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.footer-nav-col a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-nav-col a:hover {
+  color: var(--orange-bright);
+  transform: translateX(3px);
+}
+
+.duck-approved-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(255, 94, 0, 0.12);
+  border: 1px solid var(--border-orange);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.seal-icon {
+  font-size: 1.25rem;
+}
+
+.seal-text {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  color: var(--orange-yellow);
+  letter-spacing: 0.06em;
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
 }
 
 .f-title {
@@ -3295,10 +3522,17 @@ main {
     gap: 1.25rem;
   }
 
-  .inquiry-card {
+  .inquiry-card,
+  .inquiry-form-card {
     padding: 2.25rem 1.5rem;
   }
 
+  .inquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .form-row,
   .form-row-2,
   .direct-contact-row {
     grid-template-columns: 1fr;
@@ -3310,12 +3544,14 @@ main {
     gap: 1rem;
   }
 
+  .form-submit-btn,
   .btn-submit {
     width: 100%;
     justify-content: center;
   }
 
-  .footer-top-row {
+  .footer-top-row,
+  .footer-inner {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
@@ -3397,8 +3633,10 @@ main {
   }
 
   .sound-toggle-btn {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     justify-content: center;
     border-radius: 8px;
@@ -3449,7 +3687,10 @@ main {
   /* Form inputs font-size 16px to prevent iOS auto zoom */
   .form-field input,
   .form-field select,
-  .form-field textarea {
+  .form-field textarea,
+  .form-input,
+  .form-select,
+  .form-textarea {
     font-size: 16px !important;
     min-height: 48px;
   }
@@ -3507,11 +3748,14 @@ main {
   }
 
   .sound-toggle-btn {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     justify-content: center;
     border-radius: 8px;
+    flex-shrink: 0;
   }
 
   .sound-emoji {
