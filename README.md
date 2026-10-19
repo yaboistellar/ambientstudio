@@ -1,4 +1,4 @@
-# AMBIENT STUDIO 🕹️🦆
+# AMBIENT STUDIO
 
 > **The Silly Indie Game Lab.** We build chaotic, high-charm physics games with tactile joy, bespoke audio synthesis, and zero unnecessary fluff.
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 🎮 Explore The Studio
+## Explore The Studio
 
 - **[index.html](index.html)**: The official landing page with studio philosophy, featured games, and portal hubs.
 - **[games.html](games.html)**: The complete games catalogue featuring live search, genre filters (`Arcade`, `Food`, `Cozy`, `Physics`), and audio engines.
@@ -15,7 +15,7 @@
 
 ---
 
-## 🕹️ Featured Games Roster
+## Featured Games Roster
 
 | Game | Genre | Highlight |
 |---|---|---|
@@ -26,7 +26,7 @@
 
 ---
 
-## ⚡ Interactive Engine Features
+## Interactive Engine Features
 
 - **Integrated Retro Arcade Cabinet**: Built directly on HTML5 Canvas (60 FPS) with custom particle physics, hit recovery, score popups, and three playable mini-games.
 - **Web Audio API Chiptune & FX Synthesizer**: Pure oscillator FM synthesis producing duck quacks, spring boings, laser blasts, engine revs, and retro fanfares without external audio files.
@@ -36,7 +36,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Core**: Semantic HTML5, Vanilla JavaScript (ES6+)
 - **Audio**: Web Audio API (Bespoke FM synthesis, biquad filtering, gain envelopes)
@@ -45,7 +45,7 @@
 
 ---
 
-## 🚀 Running Locally
+## Running Locally
 
 You can run the studio locally using any static web server:
 

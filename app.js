@@ -137,8 +137,8 @@
     mod.stop(now + 0.36);
     osc.stop(now + 0.36);
 
-    notifyScopePulse(340, '🦆 Duck Quack 340Hz', 1.8);
-    window.showComicSoundBubble(target, 'QUACK! 🦆');
+    notifyScopePulse(340, 'Duck Quack 340Hz', 1.8);
+    window.showComicSoundBubble(target, 'QUACK!');
   };
 
   // --- Sound 2: The Spring Boing ---
@@ -179,8 +179,8 @@
     osc1.stop(now + 0.42);
     osc2.stop(now + 0.42);
 
-    notifyScopePulse(720, '🦘 Spring Boing 720Hz', 2.0);
-    window.showComicSoundBubble(target, 'BOING! 🦘');
+    notifyScopePulse(720, 'Spring Boing 720Hz', 2.0);
+    window.showComicSoundBubble(target, 'BOING!');
   };
 
   // --- Sound 3: Space Laser Zap ---
@@ -205,8 +205,8 @@
     osc.start(now);
     osc.stop(now + 0.26);
 
-    notifyScopePulse(950, '👾 Space Laser 950Hz', 2.2);
-    window.showComicSoundBubble(target, 'PEW-PEW! 🚀');
+    notifyScopePulse(950, 'Space Laser 950Hz', 2.2);
+    window.showComicSoundBubble(target, 'PEW-PEW!');
   };
 
   // --- Sound 4: Quantum Mower Engine Buzz ---
@@ -232,8 +232,8 @@
     osc.start(now);
     osc.stop(now + 0.4);
 
-    notifyScopePulse(145, '⚙️ Quantum Mower 145Hz', 1.6);
-    window.showComicSoundBubble(target, 'VROOM! ⚙️');
+    notifyScopePulse(145, 'Quantum Mower 145Hz', 1.6);
+    window.showComicSoundBubble(target, 'VROOM!');
   };
 
   // --- Sound 5: Steam / Fanfare Chimes ---
@@ -256,7 +256,7 @@
       osc.start(now + idx * 0.07);
       osc.stop(now + idx * 0.07 + 0.48);
     });
-    notifyScopePulse(1046, '🔔 Steam Fanfare 1046Hz', 1.8);
+    notifyScopePulse(1046, 'Steam Fanfare 1046Hz', 1.8);
   };
 
   // --- Sound 6: Fail Womp-Womp ---
@@ -285,8 +285,8 @@
       osc.stop(now + note.t + note.d + 0.05);
     });
 
-    notifyScopePulse(190, '🎺 Fail Womp-Womp', 1.4);
-    window.showComicSoundBubble(target, 'WOMP! 🎺');
+    notifyScopePulse(190, 'Fail Womp-Womp', 1.4);
+    window.showComicSoundBubble(target, 'WOMP!');
   };
 
   // --- Sound 7: Victory Fanfare ---
@@ -331,8 +331,8 @@
       isArcadeMusicActive = true;
       btn.classList.add('playing');
       btn.setAttribute('aria-checked', 'true');
-      label.textContent = 'Arcade Tune: ON 🎶';
-      emoji.textContent = '🔊';
+      label.textContent = 'Arcade Tune: ON';
+      emoji.textContent = '';
       window.announceA11y('Arcade tune turned on');
 
       const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
@@ -385,7 +385,7 @@
       btn.classList.remove('playing');
       btn.setAttribute('aria-checked', 'false');
       label.textContent = 'Arcade Tune: Off';
-      emoji.textContent = '🕹️';
+      emoji.textContent = '';
       window.announceA11y('Arcade tune turned off');
       if (musicInterval) {
         clearInterval(musicInterval);
@@ -502,7 +502,7 @@
         osc.start(now);
         osc.stop(now + 0.4);
 
-        notifyScopePulse(customFreqVal, `🎛️ Custom ${customWaveType.toUpperCase()} ${customFreqVal}Hz`, 2.2);
+        notifyScopePulse(customFreqVal, `Custom ${customWaveType.toUpperCase()} ${customFreqVal}Hz`, 2.2);
         window.showComicSoundBubble(playCustomBtn, `*BZZT!* ${customFreqVal}Hz`);
       });
     }
@@ -594,7 +594,7 @@
       boopCount++;
       boopBadge.textContent = `${boopCount} boops!`;
       window.triggerSillyQuack();
-      spawnFloatingToast(e.clientX, e.clientY, '+1 Quack! 🦆');
+      spawnFloatingToast(e.clientX, e.clientY, '+1 Quack!');
       window.announceA11y(`Duck booped! Total: ${boopCount} boops.`);
     });
   }
@@ -603,10 +603,10 @@
   let sillyPoints = 0;
   const achievements = [
     { threshold: 1, text: '"First step into magnificent goofiness!"' },
-    { threshold: 5, text: '"Certified Duck Rollerblade Whisperer 🦆"' },
-    { threshold: 12, text: '"Toast Defender: Safe from the Crust 🍞"' },
-    { threshold: 25, text: '"Zero-G Capybara: Unbothered Master 🧀"' },
-    { threshold: 50, text: '"ULTRA-SILLY OVERLORD OF THE GALAXY! 🎉"' }
+    { threshold: 5, text: '"Certified Duck Rollerblade Whisperer"' },
+    { threshold: 12, text: '"Toast Defender: Safe from the Crust "' },
+    { threshold: 25, text: '"Zero-G Capybara: Unbothered Master"' },
+    { threshold: 50, text: '"ULTRA-SILLY OVERLORD OF THE GALAXY!"' }
   ];
 
   function initEmergencyButton() {
@@ -671,7 +671,7 @@
       });
 
       // Visual floating bonus
-      const funEmojis = ['🦆', '🍕', '🍞', '🚀', '🧀', '★'];
+      const funEmojis = ['', '', '+1', '', '', '+1'];
       const picked = funEmojis[Math.floor(Math.random() * funEmojis.length)];
       spawnFloatingToast(e.clientX, e.clientY, `+1 SILLY ${picked}`);
     });
@@ -812,12 +812,12 @@
     const messageText = messageInput ? messageInput.value.trim() : '';
 
     const originalBtnSpan = submitBtn.querySelector('span');
-    const originalText = originalBtnSpan ? originalBtnSpan.textContent : 'Launch Message Into Space 🚀';
+    const originalText = originalBtnSpan ? originalBtnSpan.textContent : 'Launch Message Into Space';
 
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.7';
     if (originalBtnSpan) {
-      originalBtnSpan.textContent = 'Launching Pigeon Into Space... 🚀';
+      originalBtnSpan.textContent = 'Launching Pigeon Into Space...';
     }
 
     window.triggerSillyLaser();
@@ -871,7 +871,7 @@
         }
         window.fireConfetti();
         window.triggerSillyFanfare();
-        window.showToast(`Pigeon landed at ${RECIPIENT_EMAIL}! 🚀`, '🎉');
+        window.showToast(`Pigeon landed at ${RECIPIENT_EMAIL}!`, '');
         window.announceA11y(`Message successfully launched to ${RECIPIENT_EMAIL}.`);
       } else {
         throw new Error(data.message || 'FormSubmit request returned non-OK status');
@@ -1020,7 +1020,7 @@
     }
   };
 
-  window.showToast = function (msg, icon = '✨') {
+  window.showToast = function (msg, icon = '') {
     const toast = document.getElementById('ambientToast');
     const iconEl = document.getElementById('toastIcon');
     const msgEl = document.getElementById('toastMessage');
@@ -1058,7 +1058,7 @@
     window.triggerChime();
     window.fireConfetti();
     window.openModal('wishlistModal');
-    window.showToast(`★ Added "${gameTitle}" to Steam Wishlist! (+10,000 Hype)`, '🎮');
+    window.showToast(` Added "${gameTitle}" to Steam Wishlist! (+10,000 Hype)`, '');
   };
 
   window.copyWishlistLink = function () {
@@ -1066,14 +1066,14 @@
     const url = window.location.origin + '/games.html';
     navigator.clipboard.writeText(url)
       .then(() => {
-        if (btn) btn.querySelector('span').textContent = '✓ Link Copied!';
-        window.showToast('Steam share link copied to clipboard!', '📋');
+        if (btn) btn.querySelector('span').textContent = ' Link Copied!';
+        window.showToast('Steam share link copied to clipboard!', '');
         setTimeout(() => {
-          if (btn) btn.querySelector('span').textContent = '📋 Copy Share Link';
+          if (btn) btn.querySelector('span').textContent = 'Copy Share Link';
         }, 2000);
       })
       .catch(() => {
-        if (btn) btn.querySelector('span').textContent = '✓ Link Ready!';
+        if (btn) btn.querySelector('span').textContent = ' Link Ready!';
       });
   };
 
@@ -1102,11 +1102,11 @@
       if (progress === 75 && label) label.textContent = 'Injecting unhinged physics...';
       if (progress >= 100) {
         clearInterval(interval);
-        if (label) label.textContent = '✓ Standalone Demo Packaged!';
+        if (label) label.textContent = ' Standalone Demo Packaged!';
         if (directBtn) directBtn.style.display = 'inline-flex';
         window.triggerChime();
         window.triggerDirectFileDownload(currentDemoTitle);
-        window.showToast(`Downloaded ${currentDemoTitle} demo build!`, '💾');
+        window.showToast(`Downloaded ${currentDemoTitle} demo build!`, '');
       }
     }, 220);
   };
@@ -1129,10 +1129,10 @@
   </style>
 </head>
 <body>
-  <div class="badge">🎮 AMBIENT STUDIO STANDALONE OFFLINE DEMO</div>
+  <div class="badge">AMBIENT STUDIO STANDALONE OFFLINE DEMO</div>
   <h1>${title}</h1>
   <p>Thank you for downloading our silly indie game demo! Built with 100% goofy passion, zero microtransactions, and unhinged physics.</p>
-  <button class="play-btn" onclick="alert('Quack! Sir Waddlesworth is ready to roll!')">START OFFLINE SESSION 🕹️</button>
+  <button class="play-btn" onclick="alert('Quack! Sir Waddlesworth is ready to roll!')">START OFFLINE SESSION</button>
 </body>
 </html>`;
     const blob = new Blob([demoHtml], { type: 'text/html' });
@@ -1178,14 +1178,14 @@
 
     window.triggerSillyFanfare();
     window.fireConfetti();
-    window.showToast(`Welcome to Playtest Squad, ${tag}!`, '👾');
+    window.showToast(`Welcome to Playtest Squad, ${tag}!`, '');
   };
 
   window.copyTesterPassId = function () {
     const idEl = document.getElementById('testerPassId');
     const code = idEl ? idEl.textContent : '#SILLY-PASS';
     navigator.clipboard.writeText(code).then(() => {
-      window.showToast(`Tester Pass ${code} copied!`, '📋');
+      window.showToast(`Tester Pass ${code} copied!`, '');
     });
   };
 
@@ -1275,11 +1275,11 @@
       `;
     } else if (activeArcadeGame === 'toast') {
       container.innerHTML = `
-        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onclick="window.arcadeJump(event)" ontouchstart="window.arcadeJump(event)">🦘 Jump! (Space)</button>
+        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onclick="window.arcadeJump(event)" ontouchstart="window.arcadeJump(event)">Jump! (Space)</button>
       `;
     } else if (activeArcadeGame === 'capybara') {
       container.innerHTML = `
-        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onmousedown="window.arcadeBoost(event)" ontouchstart="window.arcadeBoost(event)">🚀 Thruster (Space)</button>
+        <button class="arcade-ctrl-btn arcade-ctrl-btn-primary" onmousedown="window.arcadeBoost(event)" ontouchstart="window.arcadeBoost(event)">Thruster (Space)</button>
       `;
     }
   }
@@ -1462,16 +1462,16 @@
     if (highEl) highEl.textContent = String(arcadeHighScore).padStart(4, '0');
 
     if (livesEl) {
-      if (arcadeLives === 3) livesEl.textContent = '❤️❤️❤️';
-      else if (arcadeLives === 2) livesEl.textContent = '❤️❤️🤍';
-      else if (arcadeLives === 1) livesEl.textContent = '❤️🤍🤍';
-      else livesEl.textContent = '💀 0 LIVES';
+      if (arcadeLives === 3) livesEl.textContent = '3 / 3 LIVES';
+      else if (arcadeLives === 2) livesEl.textContent = '2 / 3 LIVES';
+      else if (arcadeLives === 1) livesEl.textContent = '1 / 3 LIVES';
+      else livesEl.textContent = '0 / 3 LIVES';
     }
 
     if (statusEl) {
       if (arcadeGameState === 'READY') statusEl.textContent = 'READY (START)';
       else if (arcadeGameState === 'GAMEOVER') statusEl.textContent = 'GAME OVER';
-      else statusEl.textContent = 'PLAYING ⚡';
+      else statusEl.textContent = 'PLAYING';
     }
   }
 
@@ -1584,7 +1584,7 @@
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '800 20px "Space Grotesk", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('🕹️ CLICK OR PRESS SPACE TO START!', 320, 132);
+      ctx.fillText('CLICK OR PRESS SPACE TO START!', 320, 132);
 
       ctx.fillStyle = '#FFAE19';
       ctx.font = '600 13px "Outfit", sans-serif';
@@ -1608,11 +1608,11 @@
 
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '600 15px "Outfit", sans-serif';
-      ctx.fillText(`Final Score: ${arcadeScore} pts  ★  High Score: ${arcadeHighScore} pts`, W / 2, H / 2 + 12);
+      ctx.fillText(`Final Score: ${arcadeScore} pts    High Score: ${arcadeHighScore} pts`, W / 2, H / 2 + 12);
 
       ctx.fillStyle = '#FFAE19';
       ctx.font = '700 14px "Space Grotesk", sans-serif';
-      ctx.fillText('Click anywhere or press [SPACE] to Play Again! 🔄', W / 2, H / 2 + 48);
+      ctx.fillText('Click anywhere or press [SPACE] to Play Again!', W / 2, H / 2 + 48);
     }
 
     ctx.restore();
@@ -1674,14 +1674,14 @@
               arcadeHighScore = arcadeScore;
               localStorage.setItem('ambient_hi_score', arcadeHighScore);
             }
-            addFloatingScore(item.x, item.y, '+100 🍕', '#FFAE19');
+            addFloatingScore(item.x, item.y, '+100', '#FFAE19');
             window.triggerSillyQuack();
           } else {
             if (invulnTimer <= 0) {
               arcadeLives--;
               invulnTimer = 90; // 1.5s invulnerability
               duckShake = 16;
-              addFloatingScore(duckX, dy - 20, 'OUCH! -1 ❤️', '#EF4444');
+              addFloatingScore(duckX, dy - 20, 'OUCH! -1 LIFE', '#EF4444');
               window.triggerSillyWomp();
               if (arcadeLives <= 0) {
                 arcadeGameState = 'GAMEOVER';
@@ -1844,14 +1844,14 @@
               arcadeHighScore = arcadeScore;
               localStorage.setItem('ambient_hi_score', arcadeHighScore);
             }
-            addFloatingScore(obs.x, obs.y, '+100 🧈', '#FFAE19');
+            addFloatingScore(obs.x, obs.y, '+100', '#FFAE19');
             window.triggerSillyBoing();
           } else {
             if (invulnTimer <= 0) {
               arcadeLives--;
               invulnTimer = 90;
               duckShake = 16;
-              addFloatingScore(120, toastY - 20, 'CRISPY! -1 ❤️', '#EF4444');
+              addFloatingScore(120, toastY - 20, 'CRISPY! -1 LIFE', '#EF4444');
               window.triggerSillyWomp();
               if (arcadeLives <= 0) arcadeGameState = 'GAMEOVER';
             }
@@ -1984,14 +1984,14 @@
               arcadeHighScore = arcadeScore;
               localStorage.setItem('ambient_hi_score', arcadeHighScore);
             }
-            addFloatingScore(it.x, it.y, '+100 🧀', '#FFAE19');
+            addFloatingScore(it.x, it.y, '+100', '#FFAE19');
             window.triggerSillyLaser();
           } else {
             if (invulnTimer <= 0) {
               arcadeLives--;
               invulnTimer = 90;
               duckShake = 16;
-              addFloatingScore(140, capyY - 20, 'BOOP! -1 ❤️', '#EF4444');
+              addFloatingScore(140, capyY - 20, 'BOOP! -1 LIFE', '#EF4444');
               window.triggerSillyWomp();
               if (arcadeLives <= 0) arcadeGameState = 'GAMEOVER';
             }
