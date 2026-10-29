@@ -852,6 +852,22 @@
       }).catch(() => {});
     } catch (_) {}
 
+    // Compose mailto dispatch directly to tanshiralmusnad80@gmail.com
+    const mailSubject = encodeURIComponent('[Ambient Studio] ' + topic + ' from ' + senderName);
+    const mailBody = encodeURIComponent(
+      'Gamer Tag: ' + senderName + '\n' +
+      'Sender Email: ' + senderEmail + '\n' +
+      'Home Planet: ' + planet + '\n' +
+      'Topic: ' + topic + '\n\n' +
+      'Message:\n' + messageText
+    );
+    const mailtoUrl = 'mailto:' + RECIPIENT_EMAIL + '?subject=' + mailSubject + '&body=' + mailBody;
+
+    // Launch mail client to send email
+    try {
+      window.location.href = mailtoUrl;
+    } catch (_) {}
+
     // Show success!
     form.reset();
     submitBtn.disabled = false;
@@ -867,8 +883,8 @@
 
     window.fireConfetti();
     window.triggerSillyFanfare();
-    window.showToast('Message launched into space!', '✓');
-    window.announceA11y('Message successfully launched to Ambient Studio.');
+    window.showToast('Message dispatched to ' + RECIPIENT_EMAIL + '!', '✓');
+    window.announceA11y('Message successfully launched to ' + RECIPIENT_EMAIL);
   };
 
   // --- 7. Back To Top Button ---
