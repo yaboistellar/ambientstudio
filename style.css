@@ -313,6 +313,7 @@ main {
 .nav-links {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 0.35rem;
 }
 
@@ -328,6 +329,8 @@ main {
   transition: color 0.18s ease, background 0.18s ease, transform 0.18s var(--apple-ease);
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
+  text-transform: lowercase;
 }
 
 .nav-anchor:hover {
