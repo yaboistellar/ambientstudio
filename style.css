@@ -3639,3 +3639,32 @@ main {
 .sound-emoji:empty::before {
   content: '🎵';
 }
+
+/* Success and error banner icons */
+.success-icon:empty::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 94, 0, 0.2);
+  color: var(--orange-bright);
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.error-icon:empty::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.1rem;
+}

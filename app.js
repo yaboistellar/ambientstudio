@@ -846,7 +846,10 @@
     }
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
       const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+        signal: controller.signal,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
