@@ -773,8 +773,9 @@
     animate();
   }
 
-  // --- 6. Form Submission Handler (Live FormSubmit.co Integration) ---
+  // --- 6. Form Submission Handler (Web3Forms API + Direct Email Dispatch) ---
   const RECIPIENT_EMAIL = 'tanshiralmusnad80@gmail.com';
+  const WEB3FORMS_ACCESS_KEY = 'a85cc149-e216-448b-8a33-415bd99bdcb6';
 
   window.handleInquirySubmit = async function (e) {
     if (e && typeof e.preventDefault === 'function') {
@@ -823,6 +824,9 @@
     window.triggerSillyLaser();
 
     const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `[Ambient Studio] ${topic} from ${senderName}`,
+      from_name: senderName,
       name: senderName,
       email: senderEmail,
       topic: topic,
@@ -840,51 +844,75 @@
       console.warn('LocalStorage save note:', err);
     }
 
-    // Arcade feedback delay
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    // Non-blocking background sync attempt to FormSubmit
     try {
-      fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAIL, {
+      // 1. Submit to Web3Forms API to deliver directly to tanshiralmusnad80@gmail.com
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ ...payload, _subject: '[Ambient Studio] Transmission from ' + senderName })
-      }).catch(() => {});
-    } catch (_) {}
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
 
-    // Compose mailto dispatch directly to tanshiralmusnad80@gmail.com
-    const mailSubject = encodeURIComponent('[Ambient Studio] ' + topic + ' from ' + senderName);
-    const mailBody = encodeURIComponent(
-      'Gamer Tag: ' + senderName + '\n' +
-      'Sender Email: ' + senderEmail + '\n' +
-      'Home Planet: ' + planet + '\n' +
-      'Topic: ' + topic + '\n\n' +
-      'Message:\n' + messageText
-    );
-    const mailtoUrl = 'mailto:' + RECIPIENT_EMAIL + '?subject=' + mailSubject + '&body=' + mailBody;
+      const data = await res.json().catch(() => ({}));
 
-    // Launch mail client to send email
-    try {
-      window.location.href = mailtoUrl;
-    } catch (_) {}
+      if (res.ok || data.success === true) {
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        if (originalBtnSpan) {
+          originalBtnSpan.textContent = originalText;
+        }
 
-    // Show success!
-    form.reset();
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-    if (originalBtnSpan) {
-      originalBtnSpan.textContent = originalText;
+        if (successBanner) {
+          successBanner.classList.remove('hidden');
+          successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        window.fireConfetti();
+        window.triggerSillyFanfare();
+        window.showToast('Message launched to ' + RECIPIENT_EMAIL + '!', '✓');
+        window.announceA11y('Message successfully launched to ' + RECIPIENT_EMAIL);
+        return;
+      } else {
+        throw new Error(data.message || 'Web3Forms API non-OK response');
+      }
+    } catch (err) {
+      console.warn('Web3Forms dispatch notice, using direct client email fallback:', err);
+
+      // 2. Direct mailto fallback if network or adblocker blocks API
+      const mailSubject = encodeURIComponent('[Ambient Studio] ' + topic + ' from ' + senderName);
+      const mailBody = encodeURIComponent(
+        'Gamer Tag: ' + senderName + '\n' +
+        'Sender Email: ' + senderEmail + '\n' +
+        'Home Planet: ' + planet + '\n' +
+        'Topic: ' + topic + '\n\n' +
+        'Message:\n' + messageText
+      );
+      const mailtoUrl = 'mailto:' + RECIPIENT_EMAIL + '?subject=' + mailSubject + '&body=' + mailBody;
+
+      try {
+        window.location.href = mailtoUrl;
+      } catch (_) {}
+
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      if (originalBtnSpan) {
+        originalBtnSpan.textContent = originalText;
+      }
+
+      if (successBanner) {
+        successBanner.classList.remove('hidden');
+        successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      window.fireConfetti();
+      window.triggerSillyFanfare();
+      window.showToast('Message dispatched to ' + RECIPIENT_EMAIL + '!', '✓');
+      window.announceA11y('Message successfully launched to ' + RECIPIENT_EMAIL);
     }
-
-    if (successBanner) {
-      successBanner.classList.remove('hidden');
-      successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    window.fireConfetti();
-    window.triggerSillyFanfare();
-    window.showToast('Message dispatched to ' + RECIPIENT_EMAIL + '!', '✓');
-    window.announceA11y('Message successfully launched to ' + RECIPIENT_EMAIL);
   };
 
   // --- 7. Back To Top Button ---
