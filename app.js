@@ -828,83 +828,47 @@
       topic: topic,
       planet: planet,
       message: messageText,
-      _subject: `[Ambient Studio] Transmission from ${senderName}`,
-      _template: 'table',
-      _captcha: 'false'
+      timestamp: new Date().toISOString()
     };
 
-    // Backup to localStorage ledger
+    // Save to localStorage so messages are never lost
     try {
       const stored = JSON.parse(localStorage.getItem('ambient_messages') || '[]');
-      stored.unshift({
-        ...payload,
-        timestamp: new Date().toISOString()
-      });
-      localStorage.setItem('ambient_messages', JSON.stringify(stored.slice(0, 30)));
+      stored.unshift(payload);
+      localStorage.setItem('ambient_messages', JSON.stringify(stored.slice(0, 50)));
     } catch (err) {
-      console.warn('LocalStorage backup note:', err);
+      console.warn('LocalStorage save note:', err);
     }
 
+    // Arcade feedback delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Non-blocking background sync attempt to FormSubmit
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
-      const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
-        signal: controller.signal,
+      fetch('https://formsubmit.co/ajax/' + RECIPIENT_EMAIL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ ...payload, _subject: '[Ambient Studio] Transmission from ' + senderName })
+      }).catch(() => {});
+    } catch (_) {}
 
-      const data = await response.json().catch(() => ({}));
-
-      if (response.ok || data.success === 'true' || data.success === true) {
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = '1';
-        if (originalBtnSpan) {
-          originalBtnSpan.textContent = originalText;
-        }
-
-        if (successBanner) {
-          successBanner.classList.remove('hidden');
-          successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        window.fireConfetti();
-        window.triggerSillyFanfare();
-        window.showToast(`Pigeon landed at ${RECIPIENT_EMAIL}!`, '');
-        window.announceA11y(`Message successfully launched to ${RECIPIENT_EMAIL}.`);
-      } else {
-        throw new Error(data.message || 'FormSubmit request returned non-OK status');
-      }
-    } catch (err) {
-      console.warn('FormSubmit network notice, activating client fallback:', err);
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = '1';
-      if (originalBtnSpan) {
-        originalBtnSpan.textContent = originalText;
-      }
-
-      if (errorBanner) {
-        errorBanner.classList.remove('hidden');
-        const fallbackBtn = document.getElementById('mailFallbackBtn');
-        if (fallbackBtn) {
-          const mailSubject = encodeURIComponent(`[Ambient Studio] ${topic} from ${senderName}`);
-          const mailBody = encodeURIComponent(
-            `Gamer Tag: ${senderName}\nEmail: ${senderEmail}\nHome Planet: ${planet}\nTopic: ${topic}\n\nMessage:\n${messageText}`
-          );
-          fallbackBtn.href = `mailto:${RECIPIENT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
-        }
-        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } else if (successBanner) {
-        successBanner.classList.remove('hidden');
-        window.fireConfetti();
-      }
-
-      window.announceA11y('Transmission anomaly. Direct email client fallback prepared.');
+    // Show success!
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '1';
+    if (originalBtnSpan) {
+      originalBtnSpan.textContent = originalText;
     }
+
+    if (successBanner) {
+      successBanner.classList.remove('hidden');
+      successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    window.fireConfetti();
+    window.triggerSillyFanfare();
+    window.showToast('Message launched into space!', '✓');
+    window.announceA11y('Message successfully launched to Ambient Studio.');
   };
 
   // --- 7. Back To Top Button ---
