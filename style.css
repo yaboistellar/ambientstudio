@@ -3634,3 +3634,8 @@ main {
     transform: none !important;
   }
 }
+
+/* Fallback for sound emoji when empty */
+.sound-emoji:empty::before {
+  content: '🎵';
+}

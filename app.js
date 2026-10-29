@@ -332,7 +332,7 @@
       btn.classList.add('playing');
       btn.setAttribute('aria-checked', 'true');
       label.textContent = 'Arcade Tune: ON';
-      emoji.textContent = '';
+      emoji.textContent = '🔊';
       window.announceA11y('Arcade tune turned on');
 
       const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
@@ -385,7 +385,7 @@
       btn.classList.remove('playing');
       btn.setAttribute('aria-checked', 'false');
       label.textContent = 'Arcade Tune: Off';
-      emoji.textContent = '';
+      emoji.textContent = '🎵';
       window.announceA11y('Arcade tune turned off');
       if (musicInterval) {
         clearInterval(musicInterval);
